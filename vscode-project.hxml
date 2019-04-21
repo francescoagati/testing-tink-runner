@@ -1,5 +1,5 @@
 #automatically generated do not edit
-#@date Sun Apr 21 2019 20:55:25 GMT+0200 (ora legale Europa occ.)
+#@date Sun Apr 21 2019 21:10:32 GMT+0200 (ora legale Europa occ.)
 -cp c:\users\franc\documents\nuova cartella (2)\src\
 -D analyzer-optimize
 -main Main
@@ -17,4 +17,7 @@
 -cp c:\haxetoolkit\haxe\lib\tink_streams\0,3,2\src\
 -D tink_streams=0.3.2
 #@end-cache
+-dce full
+-D analyzer
+-D analyzer.module
 -cp c:\users\franc\appdata\local\temp\3a4e0343d69736fbdad73c2babeb0ca5487a3ce7

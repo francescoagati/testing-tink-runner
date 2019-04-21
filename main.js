@@ -7,37 +7,6 @@ function $extend(from, fields) {
 	if( fields.toString !== Object.prototype.toString ) proto.toString = fields.toString;
 	return proto;
 }
-var Attribute = $hxEnums["Attribute"] = { __ename__ : true, __constructs__ : ["Off","Bold","Underline","Blink","ReverseVideo","Concealed","BoldOff","UnderlineOff","BlinkOff","NormalVideo","ConcealedOff","Black","Red","Green","Yellow","Blue","Magenta","Cyan","White","DefaultForeground","BlackBack","RedBack","GreenBack","YellowBack","BlueBack","MagentaBack","CyanBack","WhiteBack","DefaultBackground"]
-	,Off: {_hx_index:0,__enum__:"Attribute",toString:$estr}
-	,Bold: {_hx_index:1,__enum__:"Attribute",toString:$estr}
-	,Underline: {_hx_index:2,__enum__:"Attribute",toString:$estr}
-	,Blink: {_hx_index:3,__enum__:"Attribute",toString:$estr}
-	,ReverseVideo: {_hx_index:4,__enum__:"Attribute",toString:$estr}
-	,Concealed: {_hx_index:5,__enum__:"Attribute",toString:$estr}
-	,BoldOff: {_hx_index:6,__enum__:"Attribute",toString:$estr}
-	,UnderlineOff: {_hx_index:7,__enum__:"Attribute",toString:$estr}
-	,BlinkOff: {_hx_index:8,__enum__:"Attribute",toString:$estr}
-	,NormalVideo: {_hx_index:9,__enum__:"Attribute",toString:$estr}
-	,ConcealedOff: {_hx_index:10,__enum__:"Attribute",toString:$estr}
-	,Black: {_hx_index:11,__enum__:"Attribute",toString:$estr}
-	,Red: {_hx_index:12,__enum__:"Attribute",toString:$estr}
-	,Green: {_hx_index:13,__enum__:"Attribute",toString:$estr}
-	,Yellow: {_hx_index:14,__enum__:"Attribute",toString:$estr}
-	,Blue: {_hx_index:15,__enum__:"Attribute",toString:$estr}
-	,Magenta: {_hx_index:16,__enum__:"Attribute",toString:$estr}
-	,Cyan: {_hx_index:17,__enum__:"Attribute",toString:$estr}
-	,White: {_hx_index:18,__enum__:"Attribute",toString:$estr}
-	,DefaultForeground: {_hx_index:19,__enum__:"Attribute",toString:$estr}
-	,BlackBack: {_hx_index:20,__enum__:"Attribute",toString:$estr}
-	,RedBack: {_hx_index:21,__enum__:"Attribute",toString:$estr}
-	,GreenBack: {_hx_index:22,__enum__:"Attribute",toString:$estr}
-	,YellowBack: {_hx_index:23,__enum__:"Attribute",toString:$estr}
-	,BlueBack: {_hx_index:24,__enum__:"Attribute",toString:$estr}
-	,MagentaBack: {_hx_index:25,__enum__:"Attribute",toString:$estr}
-	,CyanBack: {_hx_index:26,__enum__:"Attribute",toString:$estr}
-	,WhiteBack: {_hx_index:27,__enum__:"Attribute",toString:$estr}
-	,DefaultBackground: {_hx_index:28,__enum__:"Attribute",toString:$estr}
-};
 var Reflect = function() { };
 Reflect.__name__ = "Reflect";
 Reflect.field = function(o,field) {
@@ -60,15 +29,6 @@ Reflect.fields = function(o) {
 	}
 	return a;
 };
-Reflect.compare = function(a,b) {
-	if(a == b) {
-		return 0;
-	} else if(a > b) {
-		return 1;
-	} else {
-		return -1;
-	}
-};
 Reflect.isObject = function(v) {
 	if(v == null) {
 		return false;
@@ -90,12 +50,6 @@ Reflect.isEnumValue = function(v) {
 	} else {
 		return false;
 	}
-};
-Reflect.makeVarArgs = function(f) {
-	return function() {
-		var a = Array.prototype.slice.call(arguments);
-		return f(a);
-	};
 };
 var js_Boot = function() { };
 js_Boot.__name__ = "js.Boot";
@@ -306,262 +260,6 @@ Std.parseInt = function(x) {
 	}
 	return v;
 };
-var ANSI = function() { };
-ANSI.__name__ = "ANSI";
-ANSI.aset = function(attributes) {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	var tmp = "\x1B" + "[";
-	var _g = [];
-	var _g1 = 0;
-	while(_g1 < attributes.length) {
-		var arg = attributes[_g1];
-		++_g1;
-		if(!js_Boot.__instanceof(arg,Attribute)) {
-			throw new js__$Boot_HaxeError("Set argument is not an Attribute: " + Std.string(arg));
-		}
-		_g.push(ANSI.values.get(arg));
-	}
-	return tmp + _g.join(";") + "m";
-};
-ANSI.detectSupport = function() {
-	return false;
-};
-ANSI.title = function(str) {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B" + "]0;" + str + "\x07";
-};
-ANSI.showCursor = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[?25h";
-};
-ANSI.setY = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "d";
-};
-ANSI.setXY = function(column,line) {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + line + ";" + column + "H";
-};
-ANSI.setX = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "G";
-};
-ANSI.saveCursor = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[s";
-};
-ANSI.resetY = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "H";
-};
-ANSI.reset = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[H";
-};
-ANSI.moveUpReset = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "F";
-};
-ANSI.moveUp = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "A";
-};
-ANSI.moveRight = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "C";
-};
-ANSI.moveLeft = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "D";
-};
-ANSI.moveDownReset = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "E";
-};
-ANSI.moveDown = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "B";
-};
-ANSI.loadCursor = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[u";
-};
-ANSI.insertLines = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "L";
-};
-ANSI.insertLine = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[L";
-};
-ANSI.insertChars = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "@";
-};
-ANSI.insertChar = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[@";
-};
-ANSI.hideCursor = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[?25l";
-};
-ANSI.eraseLineToEnd = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[K";
-};
-ANSI.eraseLineToCursor = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[1K";
-};
-ANSI.eraseLine = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[2K";
-};
-ANSI.eraseDisplayToEnd = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[J";
-};
-ANSI.eraseDisplayToCursor = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[1J";
-};
-ANSI.eraseDisplay = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[2J";
-};
-ANSI.eraseChars = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "X";
-};
-ANSI.eraseChar = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[X";
-};
-ANSI.deleteLines = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "M";
-};
-ANSI.deleteLine = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[M";
-};
-ANSI.deleteChars = function(num) {
-	if(num == null) {
-		num = 1;
-	}
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[" + num + "P";
-};
-ANSI.deleteChar = function() {
-	if(ANSI.strip || ANSI.stripIfUnavailable && !ANSI.available) {
-		return "";
-	}
-	return "\x1B[P";
-};
 var EReg = function(r,opt) {
 	this.r = new RegExp(r,opt.split("u").join(""));
 };
@@ -679,7 +377,7 @@ Main.prototype = $extend(tink_testrunner_BasicSuite.prototype,{
 	testMain_1: function() {
 		var left;
 		try {
-			left = MyTools.isValidName(null);
+			left = false;
 		} catch( ex ) {
 			haxe_CallStack.lastException = ex;
 			left = "exception: " + Std.string(((ex) instanceof js__$Boot_HaxeError) ? ex.val : ex) + hx_doctest_internal_DocTestUtils.exceptionStackAsString();
@@ -698,7 +396,7 @@ Main.prototype = $extend(tink_testrunner_BasicSuite.prototype,{
 		}
 		var left1;
 		try {
-			left1 = MyTools.isValidName("");
+			left1 = "".length > 0;
 		} catch( ex2 ) {
 			haxe_CallStack.lastException = ex2;
 			left1 = "exception: " + Std.string(((ex2) instanceof js__$Boot_HaxeError) ? ex2.val : ex2) + hx_doctest_internal_DocTestUtils.exceptionStackAsString();
@@ -717,7 +415,7 @@ Main.prototype = $extend(tink_testrunner_BasicSuite.prototype,{
 		}
 		var left2;
 		try {
-			left2 = MyTools.isValidName("John");
+			left2 = "John".length > 0;
 		} catch( ex4 ) {
 			haxe_CallStack.lastException = ex4;
 			left2 = "exception: " + Std.string(((ex4) instanceof js__$Boot_HaxeError) ? ex4.val : ex4) + hx_doctest_internal_DocTestUtils.exceptionStackAsString();
@@ -793,7 +491,7 @@ Main.prototype = $extend(tink_testrunner_BasicSuite.prototype,{
 		}
 		var left6;
 		try {
-			left6 = new MyObject("ab").length();
+			left6 = "ab".length;
 		} catch( ex12 ) {
 			haxe_CallStack.lastException = ex12;
 			left6 = "exception: " + Std.string(((ex12) instanceof js__$Boot_HaxeError) ? ex12.val : ex12) + hx_doctest_internal_DocTestUtils.exceptionStackAsString();
@@ -812,7 +510,7 @@ Main.prototype = $extend(tink_testrunner_BasicSuite.prototype,{
 		}
 		var left7;
 		try {
-			left7 = new MyObject("ab").length();
+			left7 = "ab".length;
 		} catch( ex14 ) {
 			haxe_CallStack.lastException = ex14;
 			left7 = "exception: " + Std.string(((ex14) instanceof js__$Boot_HaxeError) ? ex14.val : ex14) + hx_doctest_internal_DocTestUtils.exceptionStackAsString();
@@ -831,7 +529,7 @@ Main.prototype = $extend(tink_testrunner_BasicSuite.prototype,{
 		}
 		var left8;
 		try {
-			left8 = new MyObject("abc").length();
+			left8 = "abc".length;
 		} catch( ex16 ) {
 			haxe_CallStack.lastException = ex16;
 			left8 = "exception: " + Std.string(((ex16) instanceof js__$Boot_HaxeError) ? ex16.val : ex16) + hx_doctest_internal_DocTestUtils.exceptionStackAsString();
@@ -850,9 +548,7 @@ Main.prototype = $extend(tink_testrunner_BasicSuite.prototype,{
 		}
 		var left9;
 		try {
-			var o = new MyObject("cat");
-			o.setData("dog");
-			left9 = o.data;
+			left9 = "dog";
 		} catch( ex18 ) {
 			haxe_CallStack.lastException = ex18;
 			left9 = "exception: " + Std.string(((ex18) instanceof js__$Boot_HaxeError) ? ex18.val : ex18) + hx_doctest_internal_DocTestUtils.exceptionStackAsString();
@@ -872,15 +568,6 @@ Main.prototype = $extend(tink_testrunner_BasicSuite.prototype,{
 	}
 	,__class__: Main
 });
-var MyTools = function() { };
-MyTools.__name__ = "MyTools";
-MyTools.isValidName = function(str) {
-	if(str != null) {
-		return str.length > 0;
-	} else {
-		return false;
-	}
-};
 var MyObject = function(data) {
 	if(data == null) {
 		throw new js__$Boot_HaxeError("[data] must not be null!");
@@ -889,17 +576,7 @@ var MyObject = function(data) {
 };
 MyObject.__name__ = "MyObject";
 MyObject.prototype = {
-	length: function() {
-		if(this.data == null) {
-			return 0;
-		} else {
-			return this.data.length;
-		}
-	}
-	,setData: function(data) {
-		this.data = data;
-	}
-	,__class__: MyObject
+	__class__: MyObject
 };
 Math.__name__ = "Math";
 var StringBuf = function() {
@@ -990,23 +667,6 @@ Type.enumEq = function(a,b) {
 		return false;
 	}
 	return true;
-};
-Type.enumParameters = function(e) {
-	var enm = $hxEnums[e.__enum__];
-	var ctorName = enm.__constructs__[e._hx_index];
-	var params = enm[ctorName].__params__;
-	if(params != null) {
-		var _g = [];
-		var _g1 = 0;
-		while(_g1 < params.length) {
-			var p = params[_g1];
-			++_g1;
-			_g.push(e[p]);
-		}
-		return _g;
-	} else {
-		return [];
-	}
 };
 var haxe_StackItem = $hxEnums["haxe.StackItem"] = { __ename__ : true, __constructs__ : ["CFunction","Module","FilePos","Method","LocalFunction"]
 	,CFunction: {_hx_index:0,__enum__:"haxe.StackItem",toString:$estr}
@@ -1136,8 +796,6 @@ haxe_CallStack.makeStack = function(s) {
 		return s;
 	}
 };
-var haxe_IMap = function() { };
-haxe_IMap.__name__ = "haxe.IMap";
 var haxe_Timer = function(time_ms) {
 	var me = this;
 	this.id = setInterval(function() {
@@ -1164,175 +822,6 @@ haxe_Timer.prototype = {
 	,run: function() {
 	}
 	,__class__: haxe_Timer
-};
-var haxe_ds_BalancedTree = function() {
-};
-haxe_ds_BalancedTree.__name__ = "haxe.ds.BalancedTree";
-haxe_ds_BalancedTree.__interfaces__ = [haxe_IMap];
-haxe_ds_BalancedTree.prototype = {
-	set: function(key,value) {
-		this.root = this.setLoop(key,value,this.root);
-	}
-	,get: function(key) {
-		var node = this.root;
-		while(node != null) {
-			var c = this.compare(key,node.key);
-			if(c == 0) {
-				return node.value;
-			}
-			if(c < 0) {
-				node = node.left;
-			} else {
-				node = node.right;
-			}
-		}
-		return null;
-	}
-	,setLoop: function(k,v,node) {
-		if(node == null) {
-			return new haxe_ds_TreeNode(null,k,v,null);
-		}
-		var c = this.compare(k,node.key);
-		if(c == 0) {
-			return new haxe_ds_TreeNode(node.left,k,v,node.right,node == null ? 0 : node._height);
-		} else if(c < 0) {
-			return this.balance(this.setLoop(k,v,node.left),node.key,node.value,node.right);
-		} else {
-			var nr = this.setLoop(k,v,node.right);
-			return this.balance(node.left,node.key,node.value,nr);
-		}
-	}
-	,balance: function(l,k,v,r) {
-		var hl = l == null ? 0 : l._height;
-		var hr = r == null ? 0 : r._height;
-		if(hl > hr + 2) {
-			var _this = l.left;
-			var _this1 = l.right;
-			if((_this == null ? 0 : _this._height) >= (_this1 == null ? 0 : _this1._height)) {
-				return new haxe_ds_TreeNode(l.left,l.key,l.value,new haxe_ds_TreeNode(l.right,k,v,r));
-			} else {
-				return new haxe_ds_TreeNode(new haxe_ds_TreeNode(l.left,l.key,l.value,l.right.left),l.right.key,l.right.value,new haxe_ds_TreeNode(l.right.right,k,v,r));
-			}
-		} else if(hr > hl + 2) {
-			var _this2 = r.right;
-			var _this3 = r.left;
-			if((_this2 == null ? 0 : _this2._height) > (_this3 == null ? 0 : _this3._height)) {
-				return new haxe_ds_TreeNode(new haxe_ds_TreeNode(l,k,v,r.left),r.key,r.value,r.right);
-			} else {
-				return new haxe_ds_TreeNode(new haxe_ds_TreeNode(l,k,v,r.left.left),r.left.key,r.left.value,new haxe_ds_TreeNode(r.left.right,r.key,r.value,r.right));
-			}
-		} else {
-			return new haxe_ds_TreeNode(l,k,v,r,(hl > hr ? hl : hr) + 1);
-		}
-	}
-	,compare: function(k1,k2) {
-		return Reflect.compare(k1,k2);
-	}
-	,__class__: haxe_ds_BalancedTree
-};
-var haxe_ds_TreeNode = function(l,k,v,r,h) {
-	if(h == null) {
-		h = -1;
-	}
-	this.left = l;
-	this.key = k;
-	this.value = v;
-	this.right = r;
-	if(h == -1) {
-		var tmp;
-		var _this = this.left;
-		var _this1 = this.right;
-		if((_this == null ? 0 : _this._height) > (_this1 == null ? 0 : _this1._height)) {
-			var _this2 = this.left;
-			tmp = _this2 == null ? 0 : _this2._height;
-		} else {
-			var _this3 = this.right;
-			tmp = _this3 == null ? 0 : _this3._height;
-		}
-		this._height = tmp + 1;
-	} else {
-		this._height = h;
-	}
-};
-haxe_ds_TreeNode.__name__ = "haxe.ds.TreeNode";
-haxe_ds_TreeNode.prototype = {
-	__class__: haxe_ds_TreeNode
-};
-var haxe_ds_Either = $hxEnums["haxe.ds.Either"] = { __ename__ : true, __constructs__ : ["Left","Right"]
-	,Left: ($_=function(v) { return {_hx_index:0,v:v,__enum__:"haxe.ds.Either",toString:$estr}; },$_.__params__ = ["v"],$_)
-	,Right: ($_=function(v) { return {_hx_index:1,v:v,__enum__:"haxe.ds.Either",toString:$estr}; },$_.__params__ = ["v"],$_)
-};
-var haxe_ds_EnumValueMap = function() {
-	haxe_ds_BalancedTree.call(this);
-};
-haxe_ds_EnumValueMap.__name__ = "haxe.ds.EnumValueMap";
-haxe_ds_EnumValueMap.__interfaces__ = [haxe_IMap];
-haxe_ds_EnumValueMap.__super__ = haxe_ds_BalancedTree;
-haxe_ds_EnumValueMap.prototype = $extend(haxe_ds_BalancedTree.prototype,{
-	compare: function(k1,k2) {
-		var d = k1._hx_index - k2._hx_index;
-		if(d != 0) {
-			return d;
-		}
-		var p1 = Type.enumParameters(k1);
-		var p2 = Type.enumParameters(k2);
-		if(p1.length == 0 && p2.length == 0) {
-			return 0;
-		}
-		return this.compareArgs(p1,p2);
-	}
-	,compareArgs: function(a1,a2) {
-		var ld = a1.length - a2.length;
-		if(ld != 0) {
-			return ld;
-		}
-		var _g = 0;
-		var _g1 = a1.length;
-		while(_g < _g1) {
-			var i = _g++;
-			var d = this.compareArg(a1[i],a2[i]);
-			if(d != 0) {
-				return d;
-			}
-		}
-		return 0;
-	}
-	,compareArg: function(v1,v2) {
-		if(Reflect.isEnumValue(v1) && Reflect.isEnumValue(v2)) {
-			return this.compare(v1,v2);
-		} else if(((v1) instanceof Array) && v1.__enum__ == null && (((v2) instanceof Array) && v2.__enum__ == null)) {
-			return this.compareArgs(v1,v2);
-		} else {
-			return Reflect.compare(v1,v2);
-		}
-	}
-	,__class__: haxe_ds_EnumValueMap
-});
-var haxe_ds_ObjectMap = function() {
-	this.h = { __keys__ : { }};
-};
-haxe_ds_ObjectMap.__name__ = "haxe.ds.ObjectMap";
-haxe_ds_ObjectMap.__interfaces__ = [haxe_IMap];
-haxe_ds_ObjectMap.prototype = {
-	__class__: haxe_ds_ObjectMap
-};
-var haxe_ds_Option = $hxEnums["haxe.ds.Option"] = { __ename__ : true, __constructs__ : ["Some","None"]
-	,Some: ($_=function(v) { return {_hx_index:0,v:v,__enum__:"haxe.ds.Option",toString:$estr}; },$_.__params__ = ["v"],$_)
-	,None: {_hx_index:1,__enum__:"haxe.ds.Option",toString:$estr}
-};
-var haxe_ds_StringMap = function() {
-	this.h = { };
-};
-haxe_ds_StringMap.__name__ = "haxe.ds.StringMap";
-haxe_ds_StringMap.__interfaces__ = [haxe_IMap];
-haxe_ds_StringMap.prototype = {
-	setReserved: function(key,value) {
-		if(this.rh == null) {
-			this.rh = { };
-		}
-		this.rh["$" + key] = value;
-	}
-	,__class__: haxe_ds_StringMap
 };
 var hx_doctest_internal_DocTestUtils = function() { };
 hx_doctest_internal_DocTestUtils.__name__ = "hx.doctest.internal.DocTestUtils";
@@ -1437,34 +926,6 @@ hx_doctest_internal_DocTestUtils.equals = function(left,right) {
 	}
 	return left == right;
 };
-hx_doctest_internal_DocTestUtils.substringAfter = function(str,sep) {
-	var foundAt = str.indexOf(sep);
-	if(foundAt == -1) {
-		return "";
-	}
-	return str.substring(foundAt + sep.length);
-};
-hx_doctest_internal_DocTestUtils.substringAfterLast = function(str,sep) {
-	var foundAt = str.lastIndexOf(sep);
-	if(foundAt == -1) {
-		return "";
-	}
-	return str.substring(foundAt + sep.length);
-};
-hx_doctest_internal_DocTestUtils.substringBefore = function(str,sep) {
-	var foundAt = str.indexOf(sep);
-	if(foundAt == -1) {
-		return "";
-	}
-	return str.substring(0,foundAt);
-};
-hx_doctest_internal_DocTestUtils.substringBeforeLast = function(str,sep) {
-	var foundAt = str.lastIndexOf(sep);
-	if(foundAt == -1) {
-		return "";
-	}
-	return str.substring(0,foundAt);
-};
 var tink_testrunner_CaseObject = function() { };
 tink_testrunner_CaseObject.__name__ = "tink.testrunner.CaseObject";
 tink_testrunner_CaseObject.prototype = {
@@ -1506,33 +967,12 @@ var js__$Boot_HaxeError = function(val) {
 	}
 };
 js__$Boot_HaxeError.__name__ = "js._Boot.HaxeError";
-js__$Boot_HaxeError.wrap = function(val) {
-	if(((val) instanceof Error)) {
-		return val;
-	} else {
-		return new js__$Boot_HaxeError(val);
-	}
-};
 js__$Boot_HaxeError.__super__ = Error;
 js__$Boot_HaxeError.prototype = $extend(Error.prototype,{
 	__class__: js__$Boot_HaxeError
 });
-var tink_core_Annex = function(target) {
-	this.target = target;
-	this.registry = new haxe_ds_ObjectMap();
-};
-tink_core_Annex.__name__ = "tink.core.Annex";
-tink_core_Annex.prototype = {
-	__class__: tink_core_Annex
-};
 var tink_core__$Callback_Callback_$Impl_$ = {};
 tink_core__$Callback_Callback_$Impl_$.__name__ = "tink.core._Callback.Callback_Impl_";
-tink_core__$Callback_Callback_$Impl_$._new = function(f) {
-	return f;
-};
-tink_core__$Callback_Callback_$Impl_$.toFunction = function(this1) {
-	return this1;
-};
 tink_core__$Callback_Callback_$Impl_$.invoke = function(this1,data) {
 	if(tink_core__$Callback_Callback_$Impl_$.depth < 1000) {
 		tink_core__$Callback_Callback_$Impl_$.depth++;
@@ -1549,19 +989,8 @@ tink_core__$Callback_Callback_$Impl_$.invoke = function(this1,data) {
 		});
 	}
 };
-tink_core__$Callback_Callback_$Impl_$.ignore = function(cb) {
-	return function(_) {
-		tink_core__$Callback_Callback_$Impl_$.invoke(cb,tink_core_Noise.Noise);
-	};
-};
 tink_core__$Callback_Callback_$Impl_$.fromNiladic = function(f) {
 	return f;
-};
-tink_core__$Callback_Callback_$Impl_$.fromMany = function(callbacks) {
-	return function(v) {
-		var _g = 0;
-		while(_g < callbacks.length) tink_core__$Callback_Callback_$Impl_$.invoke(callbacks[_g++],v);
-	};
 };
 tink_core__$Callback_Callback_$Impl_$.defer = function(f) {
 	haxe_Timer.delay(f,0);
@@ -1570,92 +999,6 @@ var tink_core__$Callback_LinkObject = function() { };
 tink_core__$Callback_LinkObject.__name__ = "tink.core._Callback.LinkObject";
 tink_core__$Callback_LinkObject.prototype = {
 	__class__: tink_core__$Callback_LinkObject
-};
-var tink_core__$Callback_CallbackLink_$Impl_$ = {};
-tink_core__$Callback_CallbackLink_$Impl_$.__name__ = "tink.core._Callback.CallbackLink_Impl_";
-tink_core__$Callback_CallbackLink_$Impl_$._new = function(link) {
-	return new tink_core__$Callback_SimpleLink(link);
-};
-tink_core__$Callback_CallbackLink_$Impl_$.cancel = function(this1) {
-	if(this1 != null) {
-		this1.cancel();
-	}
-};
-tink_core__$Callback_CallbackLink_$Impl_$.dissolve = function(this1) {
-	if(this1 != null) {
-		this1.cancel();
-	}
-};
-tink_core__$Callback_CallbackLink_$Impl_$.noop = function() {
-};
-tink_core__$Callback_CallbackLink_$Impl_$.toFunction = function(this1) {
-	if(this1 == null) {
-		return tink_core__$Callback_CallbackLink_$Impl_$.noop;
-	} else {
-		return $bind(this1,this1.cancel);
-	}
-};
-tink_core__$Callback_CallbackLink_$Impl_$.toCallback = function(this1) {
-	return function(_) {
-		this1.cancel();
-	};
-};
-tink_core__$Callback_CallbackLink_$Impl_$.fromFunction = function(f) {
-	return new tink_core__$Callback_SimpleLink(f);
-};
-tink_core__$Callback_CallbackLink_$Impl_$.join = function(a,b) {
-	return new tink_core__$Callback_LinkPair(a,b);
-};
-tink_core__$Callback_CallbackLink_$Impl_$.fromMany = function(callbacks) {
-	return new tink_core__$Callback_SimpleLink(function() {
-		var _g = 0;
-		while(_g < callbacks.length) {
-			var cb = callbacks[_g];
-			++_g;
-			if(cb != null) {
-				cb.cancel();
-			}
-		}
-	});
-};
-var tink_core__$Callback_SimpleLink = function(f) {
-	this.f = f;
-};
-tink_core__$Callback_SimpleLink.__name__ = "tink.core._Callback.SimpleLink";
-tink_core__$Callback_SimpleLink.__interfaces__ = [tink_core__$Callback_LinkObject];
-tink_core__$Callback_SimpleLink.prototype = {
-	cancel: function() {
-		if(this.f != null) {
-			this.f();
-			this.f = null;
-		}
-	}
-	,__class__: tink_core__$Callback_SimpleLink
-};
-var tink_core__$Callback_LinkPair = function(a,b) {
-	this.dissolved = false;
-	this.a = a;
-	this.b = b;
-};
-tink_core__$Callback_LinkPair.__name__ = "tink.core._Callback.LinkPair";
-tink_core__$Callback_LinkPair.__interfaces__ = [tink_core__$Callback_LinkObject];
-tink_core__$Callback_LinkPair.prototype = {
-	cancel: function() {
-		if(!this.dissolved) {
-			this.dissolved = true;
-			var this1 = this.a;
-			if(this1 != null) {
-				this1.cancel();
-			}
-			var this2 = this.b;
-			if(this2 != null) {
-				this2.cancel();
-			}
-			this.a = null;
-			this.b = null;
-		}
-	}
-	,__class__: tink_core__$Callback_LinkPair
 };
 var tink_core__$Callback_ListCell = function(cb,list) {
 	if(cb == null) {
@@ -1667,12 +1010,7 @@ var tink_core__$Callback_ListCell = function(cb,list) {
 tink_core__$Callback_ListCell.__name__ = "tink.core._Callback.ListCell";
 tink_core__$Callback_ListCell.__interfaces__ = [tink_core__$Callback_LinkObject];
 tink_core__$Callback_ListCell.prototype = {
-	invoke: function(data) {
-		if(this.cb != null) {
-			tink_core__$Callback_Callback_$Impl_$.invoke(this.cb,data);
-		}
-	}
-	,clear: function() {
+	clear: function() {
 		this.list = null;
 		this.cb = null;
 	}
@@ -1687,12 +1025,6 @@ tink_core__$Callback_ListCell.prototype = {
 };
 var tink_core__$Callback_CallbackList_$Impl_$ = {};
 tink_core__$Callback_CallbackList_$Impl_$.__name__ = "tink.core._Callback.CallbackList_Impl_";
-tink_core__$Callback_CallbackList_$Impl_$._new = function() {
-	return [];
-};
-tink_core__$Callback_CallbackList_$Impl_$.get_length = function(this1) {
-	return this1.length;
-};
 tink_core__$Callback_CallbackList_$Impl_$.add = function(this1,cb) {
 	var node = new tink_core__$Callback_ListCell(cb,this1);
 	this1.push(node);
@@ -1714,22 +1046,10 @@ tink_core__$Callback_CallbackList_$Impl_$.clear = function(this1) {
 	var _g1 = this1.splice(0,this1.length);
 	while(_g < _g1.length) _g1[_g++].clear();
 };
-tink_core__$Callback_CallbackList_$Impl_$.invokeAndClear = function(this1,data) {
-	var _g = 0;
-	var _g1 = this1.splice(0,this1.length);
-	while(_g < _g1.length) {
-		var cell = _g1[_g];
-		++_g;
-		if(cell.cb != null) {
-			tink_core__$Callback_Callback_$Impl_$.invoke(cell.cb,data);
-		}
-	}
-};
 var tink_core_TypedError = function(code,message,pos) {
 	if(code == null) {
 		code = 500;
 	}
-	this.isTinkError = true;
 	this.code = code;
 	this.message = message;
 	this.pos = pos;
@@ -1737,46 +1057,6 @@ var tink_core_TypedError = function(code,message,pos) {
 	this.callStack = [];
 };
 tink_core_TypedError.__name__ = "tink.core.TypedError";
-tink_core_TypedError.withData = function(code,message,data,pos) {
-	return tink_core_TypedError.typed(code,message,data,pos);
-};
-tink_core_TypedError.typed = function(code,message,data,pos) {
-	var ret = new tink_core_TypedError(code,message,pos);
-	ret.data = data;
-	return ret;
-};
-tink_core_TypedError.ofJsError = function(e,pos) {
-	return tink_core_TypedError.withData(500,e.message,e,pos);
-};
-tink_core_TypedError.asError = function(v) {
-	if(v != null && v.isTinkError) {
-		return v;
-	} else {
-		return null;
-	}
-};
-tink_core_TypedError.catchExceptions = function(f,report,pos) {
-	try {
-		return tink_core_Outcome.Success(f());
-	} catch( e ) {
-		haxe_CallStack.lastException = e;
-		var e1 = ((e) instanceof js__$Boot_HaxeError) ? e.val : e;
-		var _g = tink_core_TypedError.asError(e1);
-		return tink_core_Outcome.Failure(_g == null ? report == null ? tink_core_TypedError.withData(null,"Unexpected Error",e1,pos) : report(e1) : _g);
-	}
-};
-tink_core_TypedError.reporter = function(code,message,pos) {
-	return function(e) {
-		return tink_core_TypedError.withData(code,message,e,pos);
-	};
-};
-tink_core_TypedError.rethrow = function(any) {
-	throw js__$Boot_HaxeError.wrap(any);
-};
-tink_core_TypedError.tryFinally = function(f,cleanup) {
-	try { return f(); } finally { cleanup(); }
-	return null;
-};
 tink_core_TypedError.prototype = {
 	printPos: function() {
 		return this.pos.className + "." + this.pos.methodName + ":" + this.pos.lineNumber;
@@ -1788,42 +1068,12 @@ tink_core_TypedError.prototype = {
 		}
 		return ret;
 	}
-	,throwSelf: function() {
-		throw js__$Boot_HaxeError.wrap(this);
-	}
 	,__class__: tink_core_TypedError
-};
-var tink_core__$Error_Stack_$Impl_$ = {};
-tink_core__$Error_Stack_$Impl_$.__name__ = "tink.core._Error.Stack_Impl_";
-tink_core__$Error_Stack_$Impl_$.toString = function(this1) {
-	return "Error stack not available. Compile with -D error_stack.";
 };
 var tink_core__$Future_FutureObject = function() { };
 tink_core__$Future_FutureObject.__name__ = "tink.core._Future.FutureObject";
 tink_core__$Future_FutureObject.prototype = {
 	__class__: tink_core__$Future_FutureObject
-};
-var tink_core__$Future_NeverFuture = function() {
-};
-tink_core__$Future_NeverFuture.__name__ = "tink.core._Future.NeverFuture";
-tink_core__$Future_NeverFuture.__interfaces__ = [tink_core__$Future_FutureObject];
-tink_core__$Future_NeverFuture.prototype = {
-	map: function(f) {
-		return tink_core__$Future_NeverFuture.inst;
-	}
-	,flatMap: function(f) {
-		return tink_core__$Future_NeverFuture.inst;
-	}
-	,handle: function(callback) {
-		return null;
-	}
-	,gather: function() {
-		return tink_core__$Future_NeverFuture.inst;
-	}
-	,eager: function() {
-		return tink_core__$Future_NeverFuture.inst;
-	}
-	,__class__: tink_core__$Future_NeverFuture
 };
 var tink_core__$Lazy_LazyObject = function() { };
 tink_core__$Lazy_LazyObject.__name__ = "tink.core._Lazy.LazyObject";
@@ -1843,12 +1093,6 @@ tink_core__$Lazy_LazyConst.prototype = {
 		var _gthis = this;
 		return new tink_core__$Lazy_LazyFunc(function() {
 			return f(_gthis.value);
-		});
-	}
-	,flatMap: function(f) {
-		var _gthis = this;
-		return new tink_core__$Lazy_LazyFunc(function() {
-			return f(_gthis.value).get();
 		});
 	}
 	,__class__: tink_core__$Lazy_LazyConst
@@ -1872,9 +1116,6 @@ tink_core__$Future_SyncFuture.prototype = {
 		tink_core__$Callback_Callback_$Impl_$.invoke(cb,this.value.get());
 		return null;
 	}
-	,eager: function() {
-		return this;
-	}
 	,gather: function() {
 		return this;
 	}
@@ -1885,119 +1126,13 @@ var tink_core_Noise = $hxEnums["tink.core.Noise"] = { __ename__ : true, __constr
 };
 var tink_core__$Future_Future_$Impl_$ = {};
 tink_core__$Future_Future_$Impl_$.__name__ = "tink.core._Future.Future_Impl_";
-tink_core__$Future_Future_$Impl_$._new = function(f) {
-	return new tink_core__$Future_SimpleFuture(f);
-};
-tink_core__$Future_Future_$Impl_$.first = function(this1,other) {
-	var ret = new tink_core_FutureTrigger();
-	var l1 = this1.handle($bind(ret,ret.trigger));
-	var l2 = other.handle($bind(ret,ret.trigger));
-	var ret1 = ret;
-	if(l1 != null) {
-		var this2 = l1;
-		ret1.handle(function(_) {
-			this2.cancel();
-		});
-	}
-	if(l2 != null) {
-		var this3 = l2;
-		ret1.handle(function(_1) {
-			this3.cancel();
-		});
-	}
-	return ret1;
-};
-tink_core__$Future_Future_$Impl_$.map = function(this1,f,gather) {
-	if(gather == null) {
-		gather = true;
-	}
-	var ret = this1.map(f);
-	if(gather) {
-		return ret.gather();
-	} else {
-		return ret;
-	}
-};
-tink_core__$Future_Future_$Impl_$.flatMap = function(this1,next,gather) {
-	if(gather == null) {
-		gather = true;
-	}
-	var ret = this1.flatMap(next);
-	if(gather) {
-		return ret.gather();
-	} else {
-		return ret;
-	}
-};
 tink_core__$Future_Future_$Impl_$.next = function(this1,n) {
 	return this1.flatMap(function(v) {
 		return n(v);
 	});
 };
-tink_core__$Future_Future_$Impl_$.merge = function(this1,other,merger,gather) {
-	if(gather == null) {
-		gather = true;
-	}
-	var ret = this1.flatMap(function(t) {
-		return other.map(function(a) {
-			return merger(t,a);
-		});
-	});
-	if(gather) {
-		return ret.gather();
-	} else {
-		return ret;
-	}
-};
 tink_core__$Future_Future_$Impl_$.flatten = function(f) {
 	return new tink_core__$Future_NestedFuture(f);
-};
-tink_core__$Future_Future_$Impl_$.ofJsPromise = function(promise) {
-	return tink_core__$Future_Future_$Impl_$.async(function(cb) {
-		promise.then(function(a) {
-			cb(tink_core_Outcome.Success(a));
-		}).catch(function(e) {
-			var tmp = tink_core_Outcome.Failure(tink_core_TypedError.withData(null,e.message,e,{ fileName : "tink/core/Future.hx", lineNumber : 78, className : "tink.core._Future.Future_Impl_", methodName : "ofJsPromise"}));
-			cb(tmp);
-		});
-	});
-};
-tink_core__$Future_Future_$Impl_$.ofAny = function(v) {
-	return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(v));
-};
-tink_core__$Future_Future_$Impl_$.asPromise = function(s) {
-	return s;
-};
-tink_core__$Future_Future_$Impl_$.ofMany = function(futures,gather) {
-	if(gather == null) {
-		gather = true;
-	}
-	var ret = new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst([]));
-	var _g = 0;
-	while(_g < futures.length) ret = ret.flatMap((function(f) {
-		return function(results) {
-			var ret1 = (function() {
-				return function(result) {
-					return results.concat([result]);
-				};
-			})();
-			return f[0].map(ret1);
-		};
-	})([futures[_g++]]));
-	if(gather) {
-		return ret.gather();
-	} else {
-		return ret;
-	}
-};
-tink_core__$Future_Future_$Impl_$.fromMany = function(futures) {
-	return tink_core__$Future_Future_$Impl_$.ofMany(futures);
-};
-tink_core__$Future_Future_$Impl_$.lazy = function(l) {
-	return new tink_core__$Future_SyncFuture(l);
-};
-tink_core__$Future_Future_$Impl_$.sync = function(v) {
-	return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(v));
 };
 tink_core__$Future_Future_$Impl_$.async = function(f,lazy) {
 	if(lazy == null) {
@@ -2010,63 +1145,6 @@ tink_core__$Future_Future_$Impl_$.async = function(f,lazy) {
 		tink_core__$Callback_Callback_$Impl_$.invoke(f,$bind(op,op.trigger));
 		return op;
 	}
-};
-tink_core__$Future_Future_$Impl_$.or = function(a,b) {
-	return tink_core__$Future_Future_$Impl_$.first(a,b);
-};
-tink_core__$Future_Future_$Impl_$.either = function(a,b) {
-	return tink_core__$Future_Future_$Impl_$.first(a.map(haxe_ds_Either.Left),b.map(haxe_ds_Either.Right));
-};
-tink_core__$Future_Future_$Impl_$.and = function(a,b) {
-	return tink_core__$Future_Future_$Impl_$.merge(a,b,function(a1,b1) {
-		return new tink_core_MPair(a1,b1);
-	});
-};
-tink_core__$Future_Future_$Impl_$._tryFailingFlatMap = function(f,map) {
-	return f.flatMap(function(o) {
-		switch(o._hx_index) {
-		case 0:
-			return map(o.data);
-		case 1:
-			return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Failure(o.failure)));
-		}
-	}).gather();
-};
-tink_core__$Future_Future_$Impl_$._tryFlatMap = function(f,map) {
-	return f.flatMap(function(o) {
-		switch(o._hx_index) {
-		case 0:
-			return map(o.data).map(tink_core_Outcome.Success).gather();
-		case 1:
-			return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Failure(o.failure)));
-		}
-	}).gather();
-};
-tink_core__$Future_Future_$Impl_$._tryFailingMap = function(f,map) {
-	return f.map(function(o) {
-		return tink_core_OutcomeTools.flatMap(o,tink_core__$Outcome_OutcomeMapper_$Impl_$.withSameError(map));
-	}).gather();
-};
-tink_core__$Future_Future_$Impl_$._tryMap = function(f,map) {
-	return f.map(function(o) {
-		return tink_core_OutcomeTools.map(o,map);
-	}).gather();
-};
-tink_core__$Future_Future_$Impl_$._flatMap = function(f,map) {
-	return f.flatMap(map).gather();
-};
-tink_core__$Future_Future_$Impl_$._map = function(f,map) {
-	return f.map(map).gather();
-};
-tink_core__$Future_Future_$Impl_$.trigger = function() {
-	return new tink_core_FutureTrigger();
-};
-tink_core__$Future_Future_$Impl_$.delay = function(ms,value) {
-	return tink_core__$Future_Future_$Impl_$.async(function(cb) {
-		haxe_Timer.delay(function() {
-			cb(value.get());
-		},ms);
-	});
 };
 var tink_core__$Future_SimpleFuture = function(f) {
 	this.f = f;
@@ -2103,12 +1181,6 @@ tink_core__$Future_SimpleFuture.prototype = {
 			return this.gathered = tink_core_FutureTrigger.gatherFuture(this);
 		}
 	}
-	,eager: function() {
-		var ret = this.gathered != null ? this.gathered : this.gathered = tink_core_FutureTrigger.gatherFuture(this);
-		ret.handle(tink_core__$Callback_Callback_$Impl_$.fromNiladic(function() {
-		}));
-		return ret;
-	}
 	,__class__: tink_core__$Future_SimpleFuture
 };
 var tink_core__$Future_NestedFuture = function(outer) {
@@ -2133,12 +1205,6 @@ tink_core__$Future_NestedFuture.prototype = {
 		} else {
 			return this.gathered = tink_core_FutureTrigger.gatherFuture(this);
 		}
-	}
-	,eager: function() {
-		var ret = this.gathered != null ? this.gathered : this.gathered = tink_core_FutureTrigger.gatherFuture(this);
-		ret.handle(tink_core__$Callback_Callback_$Impl_$.fromNiladic(function() {
-		}));
-		return ret;
 	}
 	,handle: function(cb) {
 		var ret = null;
@@ -2203,12 +1269,6 @@ tink_core_FutureTrigger.prototype = {
 	,gather: function() {
 		return this;
 	}
-	,eager: function() {
-		return this;
-	}
-	,asFuture: function() {
-		return this;
-	}
 	,trigger: function(result) {
 		if(this.list == null) {
 			return false;
@@ -2269,31 +1329,6 @@ tink_core__$Future_LazyTrigger.prototype = $extend(tink_core_FutureTrigger.proto
 	}
 	,__class__: tink_core__$Future_LazyTrigger
 });
-var tink_core_JsPromiseTools = function() { };
-tink_core_JsPromiseTools.__name__ = "tink.core.JsPromiseTools";
-tink_core_JsPromiseTools.toSurprise = function(promise) {
-	return tink_core__$Future_Future_$Impl_$.ofJsPromise(promise);
-};
-tink_core_JsPromiseTools.toPromise = function(promise) {
-	return tink_core__$Future_Future_$Impl_$.ofJsPromise(promise);
-};
-var tink_core__$Lazy_Lazy_$Impl_$ = {};
-tink_core__$Lazy_Lazy_$Impl_$.__name__ = "tink.core._Lazy.Lazy_Impl_";
-tink_core__$Lazy_Lazy_$Impl_$.get = function(this1) {
-	return this1.get();
-};
-tink_core__$Lazy_Lazy_$Impl_$.ofFunc = function(f) {
-	return new tink_core__$Lazy_LazyFunc(f);
-};
-tink_core__$Lazy_Lazy_$Impl_$.map = function(this1,f) {
-	return this1.map(f);
-};
-tink_core__$Lazy_Lazy_$Impl_$.flatMap = function(this1,f) {
-	return this1.flatMap(f);
-};
-tink_core__$Lazy_Lazy_$Impl_$.ofConst = function(c) {
-	return new tink_core__$Lazy_LazyConst(c);
-};
 var tink_core__$Lazy_LazyFunc = function(f) {
 	this.f = f;
 };
@@ -2314,113 +1349,7 @@ tink_core__$Lazy_LazyFunc.prototype = {
 			return f(tmp);
 		});
 	}
-	,flatMap: function(f) {
-		var _gthis = this;
-		return new tink_core__$Lazy_LazyFunc(function() {
-			var this1 = _gthis.get();
-			return f(this1).get();
-		});
-	}
 	,__class__: tink_core__$Lazy_LazyFunc
-};
-var tink_core_NamedWith = function(name,value) {
-	this.name = name;
-	this.value = value;
-};
-tink_core_NamedWith.__name__ = "tink.core.NamedWith";
-tink_core_NamedWith.prototype = {
-	__class__: tink_core_NamedWith
-};
-var tink_core_OptionTools = function() { };
-tink_core_OptionTools.__name__ = "tink.core.OptionTools";
-tink_core_OptionTools.force = function(o,pos) {
-	if(o._hx_index == 0) {
-		return o.v;
-	} else {
-		throw new js__$Boot_HaxeError(new tink_core_TypedError(404,"Some value expected but none found",pos));
-	}
-};
-tink_core_OptionTools.or = function(o,l) {
-	if(o._hx_index == 0) {
-		return o.v;
-	} else {
-		return l.get();
-	}
-};
-tink_core_OptionTools.orNull = function(o) {
-	if(o._hx_index == 0) {
-		return o.v;
-	} else {
-		return null;
-	}
-};
-tink_core_OptionTools.filter = function(o,f) {
-	if(o._hx_index == 0) {
-		if(f(o.v) == false) {
-			return haxe_ds_Option.None;
-		} else {
-			return o;
-		}
-	} else {
-		return o;
-	}
-};
-tink_core_OptionTools.satisfies = function(o,f) {
-	if(o._hx_index == 0) {
-		return f(o.v);
-	} else {
-		return false;
-	}
-};
-tink_core_OptionTools.equals = function(o,v) {
-	if(o._hx_index == 0) {
-		return o.v == v;
-	} else {
-		return false;
-	}
-};
-tink_core_OptionTools.map = function(o,f) {
-	if(o._hx_index == 0) {
-		return haxe_ds_Option.Some(f(o.v));
-	} else {
-		return haxe_ds_Option.None;
-	}
-};
-tink_core_OptionTools.flatMap = function(o,f) {
-	if(o._hx_index == 0) {
-		return f(o.v);
-	} else {
-		return haxe_ds_Option.None;
-	}
-};
-tink_core_OptionTools.iterator = function(o) {
-	return new tink_core_OptionIter(o);
-};
-tink_core_OptionTools.toArray = function(o) {
-	if(o._hx_index == 0) {
-		return [o.v];
-	} else {
-		return [];
-	}
-};
-var tink_core_OptionIter = function(o) {
-	this.alive = true;
-	if(o._hx_index == 0) {
-		this.value = o.v;
-	} else {
-		this.alive = false;
-	}
-};
-tink_core_OptionIter.__name__ = "tink.core.OptionIter";
-tink_core_OptionIter.prototype = {
-	hasNext: function() {
-		return this.alive;
-	}
-	,next: function() {
-		this.alive = false;
-		return this.value;
-	}
-	,__class__: tink_core_OptionIter
 };
 var tink_core_Outcome = $hxEnums["tink.core.Outcome"] = { __ename__ : true, __constructs__ : ["Success","Failure"]
 	,Success: ($_=function(data) { return {_hx_index:0,data:data,__enum__:"tink.core.Outcome",toString:$estr}; },$_.__params__ = ["data"],$_)
@@ -2428,77 +1357,6 @@ var tink_core_Outcome = $hxEnums["tink.core.Outcome"] = { __ename__ : true, __co
 };
 var tink_core_OutcomeTools = function() { };
 tink_core_OutcomeTools.__name__ = "tink.core.OutcomeTools";
-tink_core_OutcomeTools.sure = function(outcome) {
-	switch(outcome._hx_index) {
-	case 0:
-		return outcome.data;
-	case 1:
-		var failure = outcome.failure;
-		var _g = tink_core_TypedError.asError(failure);
-		if(_g == null) {
-			throw new js__$Boot_HaxeError(failure);
-		} else {
-			return _g.throwSelf();
-		}
-		break;
-	}
-};
-tink_core_OutcomeTools.toOption = function(outcome) {
-	switch(outcome._hx_index) {
-	case 0:
-		return haxe_ds_Option.Some(outcome.data);
-	case 1:
-		return haxe_ds_Option.None;
-	}
-};
-tink_core_OutcomeTools.toOutcome = function(option,pos) {
-	switch(option._hx_index) {
-	case 0:
-		return tink_core_Outcome.Success(option.v);
-	case 1:
-		return tink_core_Outcome.Failure(new tink_core_TypedError(404,"Some value expected but none found in " + pos.fileName + "@line " + pos.lineNumber,{ fileName : "tink/core/Outcome.hx", lineNumber : 47, className : "tink.core.OutcomeTools", methodName : "toOutcome"}));
-	}
-};
-tink_core_OutcomeTools.orNull = function(outcome) {
-	switch(outcome._hx_index) {
-	case 0:
-		return outcome.data;
-	case 1:
-		return null;
-	}
-};
-tink_core_OutcomeTools.orUse = function(outcome,fallback) {
-	switch(outcome._hx_index) {
-	case 0:
-		return outcome.data;
-	case 1:
-		return fallback.get();
-	}
-};
-tink_core_OutcomeTools.orTry = function(outcome,fallback) {
-	switch(outcome._hx_index) {
-	case 0:
-		return outcome;
-	case 1:
-		return fallback.get();
-	}
-};
-tink_core_OutcomeTools.equals = function(outcome,to) {
-	switch(outcome._hx_index) {
-	case 0:
-		return outcome.data == to;
-	case 1:
-		return false;
-	}
-};
-tink_core_OutcomeTools.map = function(outcome,transform) {
-	switch(outcome._hx_index) {
-	case 0:
-		return tink_core_Outcome.Success(transform(outcome.data));
-	case 1:
-		return tink_core_Outcome.Failure(outcome.failure);
-	}
-};
 tink_core_OutcomeTools.isSuccess = function(outcome) {
 	if(outcome._hx_index == 0) {
 		return true;
@@ -2506,168 +1364,8 @@ tink_core_OutcomeTools.isSuccess = function(outcome) {
 		return false;
 	}
 };
-tink_core_OutcomeTools.flatMap = function(o,mapper) {
-	return tink_core__$Outcome_OutcomeMapper_$Impl_$.apply(mapper,o);
-};
-tink_core_OutcomeTools.swap = function(outcome,v) {
-	switch(outcome._hx_index) {
-	case 0:
-		return tink_core_Outcome.Success(v);
-	case 1:
-		return tink_core_Outcome.Failure(outcome.failure);
-	}
-};
-tink_core_OutcomeTools.attempt = function(f,report) {
-	try {
-		return tink_core_Outcome.Success(f());
-	} catch( e ) {
-		haxe_CallStack.lastException = e;
-		return tink_core_Outcome.Failure(report(((e) instanceof js__$Boot_HaxeError) ? e.val : e));
-	}
-};
-tink_core_OutcomeTools.flatten = function(o) {
-	switch(o._hx_index) {
-	case 0:
-		switch(o.data._hx_index) {
-		case 0:
-			return tink_core_Outcome.Success(o.data.data);
-		case 1:
-			return tink_core_Outcome.Failure(o.data.failure);
-		}
-		break;
-	case 1:
-		return tink_core_Outcome.Failure(o.failure);
-	}
-};
-var tink_core__$Outcome_OutcomeMapper_$Impl_$ = {};
-tink_core__$Outcome_OutcomeMapper_$Impl_$.__name__ = "tink.core._Outcome.OutcomeMapper_Impl_";
-tink_core__$Outcome_OutcomeMapper_$Impl_$._new = function(f) {
-	return { f : f};
-};
-tink_core__$Outcome_OutcomeMapper_$Impl_$.apply = function(this1,o) {
-	return this1.f(o);
-};
-tink_core__$Outcome_OutcomeMapper_$Impl_$.withSameError = function(f) {
-	return tink_core__$Outcome_OutcomeMapper_$Impl_$._new(function(o) {
-		switch(o._hx_index) {
-		case 0:
-			return f(o.data);
-		case 1:
-			return tink_core_Outcome.Failure(o.failure);
-		}
-	});
-};
-tink_core__$Outcome_OutcomeMapper_$Impl_$.withEitherError = function(f) {
-	return tink_core__$Outcome_OutcomeMapper_$Impl_$._new(function(o) {
-		switch(o._hx_index) {
-		case 0:
-			var _g = f(o.data);
-			switch(_g._hx_index) {
-			case 0:
-				return tink_core_Outcome.Success(_g.data);
-			case 1:
-				return tink_core_Outcome.Failure(haxe_ds_Either.Right(_g.failure));
-			}
-			break;
-		case 1:
-			return tink_core_Outcome.Failure(haxe_ds_Either.Left(o.failure));
-		}
-	});
-};
-var tink_core__$Pair_Pair_$Impl_$ = {};
-tink_core__$Pair_Pair_$Impl_$.__name__ = "tink.core._Pair.Pair_Impl_";
-tink_core__$Pair_Pair_$Impl_$._new = function(a,b) {
-	return new tink_core_MPair(a,b);
-};
-tink_core__$Pair_Pair_$Impl_$.get_a = function(this1) {
-	return this1.a;
-};
-tink_core__$Pair_Pair_$Impl_$.get_b = function(this1) {
-	return this1.b;
-};
-tink_core__$Pair_Pair_$Impl_$.toBool = function(this1) {
-	return this1 != null;
-};
-tink_core__$Pair_Pair_$Impl_$.isNil = function(this1) {
-	return this1 == null;
-};
-tink_core__$Pair_Pair_$Impl_$.nil = function() {
-	return null;
-};
-var tink_core_MPair = function(a,b) {
-	this.a = a;
-	this.b = b;
-};
-tink_core_MPair.__name__ = "tink.core.MPair";
-tink_core_MPair.prototype = {
-	__class__: tink_core_MPair
-};
 var tink_core__$Promise_Promise_$Impl_$ = {};
 tink_core__$Promise_Promise_$Impl_$.__name__ = "tink.core._Promise.Promise_Impl_";
-tink_core__$Promise_Promise_$Impl_$._new = function(f,lazy) {
-	if(lazy == null) {
-		lazy = false;
-	}
-	return tink_core__$Future_Future_$Impl_$.async(function(cb) {
-		f(function(v) {
-			cb(tink_core_Outcome.Success(v));
-		},function(e) {
-			cb(tink_core_Outcome.Failure(e));
-		});
-	},lazy);
-};
-tink_core__$Promise_Promise_$Impl_$.eager = function(this1) {
-	return this1.eager();
-};
-tink_core__$Promise_Promise_$Impl_$.map = function(this1,f) {
-	return this1.map(f).gather();
-};
-tink_core__$Promise_Promise_$Impl_$.flatMap = function(this1,f) {
-	return this1.flatMap(f).gather();
-};
-tink_core__$Promise_Promise_$Impl_$.tryRecover = function(this1,f) {
-	return this1.flatMap(function(o) {
-		switch(o._hx_index) {
-		case 0:
-			return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(o));
-		case 1:
-			return f(o.failure);
-		}
-	}).gather();
-};
-tink_core__$Promise_Promise_$Impl_$.recover = function(this1,f) {
-	return this1.flatMap(function(o) {
-		switch(o._hx_index) {
-		case 0:
-			return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(o.data));
-		case 1:
-			return f(o.failure);
-		}
-	}).gather();
-};
-tink_core__$Promise_Promise_$Impl_$.mapError = function(this1,f) {
-	return this1.map(function(o) {
-		switch(o._hx_index) {
-		case 0:
-			return o;
-		case 1:
-			return tink_core_Outcome.Failure(f(o.failure));
-		}
-	}).gather();
-};
-tink_core__$Promise_Promise_$Impl_$.handle = function(this1,cb) {
-	return this1.handle(cb);
-};
-tink_core__$Promise_Promise_$Impl_$.noise = function(this1) {
-	return tink_core__$Promise_Promise_$Impl_$.next(this1,function(v) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success(tink_core_Noise.Noise)));
-	});
-};
-tink_core__$Promise_Promise_$Impl_$.isSuccess = function(this1) {
-	return this1.map(function(o) {
-		return tink_core_OutcomeTools.isSuccess(o);
-	}).gather();
-};
 tink_core__$Promise_Promise_$Impl_$.next = function(this1,f,gather) {
 	if(gather == null) {
 		gather = true;
@@ -2686,237 +1384,6 @@ tink_core__$Promise_Promise_$Impl_$.next = function(this1,f,gather) {
 		return ret;
 	}
 };
-tink_core__$Promise_Promise_$Impl_$.swap = function(this1,v) {
-	return tink_core__$Future_Future_$Impl_$._tryMap(this1,function(_) {
-		return v;
-	});
-};
-tink_core__$Promise_Promise_$Impl_$.swapError = function(this1,e) {
-	return tink_core__$Promise_Promise_$Impl_$.mapError(this1,function(_) {
-		return e;
-	});
-};
-tink_core__$Promise_Promise_$Impl_$.merge = function(this1,other,merger,gather) {
-	if(gather == null) {
-		gather = true;
-	}
-	return tink_core__$Promise_Promise_$Impl_$.next(this1,function(t) {
-		return tink_core__$Promise_Promise_$Impl_$.next(other,function(a) {
-			return merger(t,a);
-		},false);
-	},gather);
-};
-tink_core__$Promise_Promise_$Impl_$.and = function(a,b) {
-	return tink_core__$Promise_Promise_$Impl_$.merge(a,b,function(a1,b1) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success(new tink_core_MPair(a1,b1))));
-	});
-};
-tink_core__$Promise_Promise_$Impl_$.iterate = function(promises,$yield,$finally,lazy) {
-	return tink_core__$Future_Future_$Impl_$.async(function(cb) {
-		var iter = $getIterator(promises);
-		var next = null;
-		next = function() {
-			if(iter.hasNext()) {
-				iter.next().handle(function(o) {
-					switch(o._hx_index) {
-					case 0:
-						$yield(o.data).handle(function(o1) {
-							switch(o1._hx_index) {
-							case 0:
-								switch(o1.data._hx_index) {
-								case 0:
-									cb(tink_core_Outcome.Success(o1.data.v));
-									break;
-								case 1:
-									next();
-									break;
-								}
-								break;
-							case 1:
-								cb(tink_core_Outcome.Failure(o1.failure));
-								break;
-							}
-						});
-						break;
-					case 1:
-						cb(tink_core_Outcome.Failure(o.failure));
-						break;
-					}
-				});
-			} else {
-				$finally.handle(cb);
-			}
-		};
-		next();
-	},lazy);
-};
-tink_core__$Promise_Promise_$Impl_$.retry = function(gen,next) {
-	var stamp = function() {
-		return Date.now() / 1000 * 1000;
-	};
-	var start = stamp();
-	var attempt = null;
-	attempt = function(count) {
-		var f = function(error) {
-			var f1 = stamp() - start;
-			return tink_core__$Promise_Promise_$Impl_$.next(next({ attempt : count, error : error, elapsed : f1}),function(_) {
-				return attempt(count + 1);
-			});
-		};
-		return gen().flatMap(function(o) {
-			switch(o._hx_index) {
-			case 0:
-				return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(o));
-			case 1:
-				return f(o.failure);
-			}
-		}).gather();
-	};
-	return attempt(1);
-};
-tink_core__$Promise_Promise_$Impl_$.ofJsPromise = function(promise) {
-	return tink_core__$Future_Future_$Impl_$.ofJsPromise(promise);
-};
-tink_core__$Promise_Promise_$Impl_$.ofSpecific = function(s) {
-	return s;
-};
-tink_core__$Promise_Promise_$Impl_$.ofFuture = function(f) {
-	return f.map(tink_core_Outcome.Success).gather();
-};
-tink_core__$Promise_Promise_$Impl_$.ofOutcome = function(o) {
-	return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(o));
-};
-tink_core__$Promise_Promise_$Impl_$.ofError = function(e) {
-	return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Failure(e)));
-};
-tink_core__$Promise_Promise_$Impl_$.ofData = function(d) {
-	return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success(d)));
-};
-tink_core__$Promise_Promise_$Impl_$.lazy = function(p) {
-	return tink_core__$Future_Future_$Impl_$.async(function(cb) {
-		p.get().handle(cb);
-	},true);
-};
-tink_core__$Promise_Promise_$Impl_$.inParallel = function(a,concurrency,lazy) {
-	if(a.length == 0) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success([])));
-	} else {
-		return tink_core__$Future_Future_$Impl_$.async(function(cb) {
-			var result = [];
-			var pending = a.length;
-			var links = null;
-			var linkArray = [];
-			var sync = false;
-			var i = 0;
-			var iter = HxOverrides.iter(a);
-			var next = null;
-			var done = function(o) {
-				if(links == null) {
-					sync = true;
-				} else if(links != null) {
-					links.cancel();
-				}
-				cb(o);
-			};
-			var fail = function(e) {
-				pending = 0;
-				done(tink_core_Outcome.Failure(e));
-			};
-			var set = function(index,value) {
-				result[index] = value;
-				if((pending -= 1) == 0) {
-					done(tink_core_Outcome.Success(result));
-				} else if(iter.hasNext() && pending > 0) {
-					next();
-				}
-			};
-			next = function() {
-				i += 1;
-				var index1 = i - 1;
-				var next1 = iter.next().handle(function(o1) {
-					switch(o1._hx_index) {
-					case 0:
-						set(index1,o1.data);
-						break;
-					case 1:
-						fail(o1.failure);
-						break;
-					}
-				});
-				linkArray.push(next1);
-			};
-			while(true) {
-				var tmp;
-				if(iter.hasNext() && pending > 0) {
-					if(concurrency != null) {
-						concurrency -= 1;
-						tmp = concurrency + 1 > 0;
-					} else {
-						tmp = true;
-					}
-				} else {
-					tmp = false;
-				}
-				if(!tmp) {
-					break;
-				}
-				next();
-			}
-			links = tink_core__$Callback_CallbackLink_$Impl_$.fromMany(linkArray);
-			if(sync) {
-				if(links != null) {
-					links.cancel();
-				}
-			}
-		},lazy);
-	}
-};
-tink_core__$Promise_Promise_$Impl_$.inSequence = function(a) {
-	var loop = null;
-	loop = function(index) {
-		if(index == a.length) {
-			return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success([])));
-		} else {
-			return tink_core__$Promise_Promise_$Impl_$.next(a[index],function(head) {
-				return tink_core__$Promise_Promise_$Impl_$.next(loop(index + 1),function(tail) {
-					return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success([head].concat(tail))));
-				});
-			});
-		}
-	};
-	return loop(0);
-};
-tink_core__$Promise_Promise_$Impl_$.cache = function(gen) {
-	var p = null;
-	return function() {
-		var ret = p;
-		if(ret == null) {
-			var sync = false;
-			ret = tink_core__$Promise_Promise_$Impl_$.next(gen(),function(o) {
-				o.b.handle(function(_) {
-					sync = true;
-					p = null;
-				});
-				return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success(o.a)));
-			});
-			if(!sync) {
-				p = ret;
-			}
-		}
-		return ret.map(function(o1) {
-			if(!tink_core_OutcomeTools.isSuccess(o1)) {
-				p = null;
-			}
-			return o1;
-		}).gather();
-	};
-};
-tink_core__$Promise_Promise_$Impl_$.lift = function(p) {
-	return p;
-};
-tink_core__$Promise_Promise_$Impl_$.trigger = function() {
-	return new tink_core_FutureTrigger();
-};
 var tink_core__$Promise_Next_$Impl_$ = {};
 tink_core__$Promise_Next_$Impl_$.__name__ = "tink.core._Promise.Next_Impl_";
 tink_core__$Promise_Next_$Impl_$.ofSafe = function(f) {
@@ -2924,492 +1391,23 @@ tink_core__$Promise_Next_$Impl_$.ofSafe = function(f) {
 		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(f(x)));
 	};
 };
-tink_core__$Promise_Next_$Impl_$.ofSync = function(f) {
-	return function(x) {
-		return f(x).map(tink_core_Outcome.Success).gather();
-	};
-};
-tink_core__$Promise_Next_$Impl_$.ofSafeSync = function(f) {
-	return function(x) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success(f(x))));
-	};
-};
-tink_core__$Promise_Next_$Impl_$._chain = function(a,b) {
-	return function(v) {
-		return tink_core__$Promise_Promise_$Impl_$.next(a(v),b);
-	};
-};
-var tink_core__$Promise_Recover_$Impl_$ = {};
-tink_core__$Promise_Recover_$Impl_$.__name__ = "tink.core._Promise.Recover_Impl_";
-tink_core__$Promise_Recover_$Impl_$.ofSync = function(f) {
-	return function(e) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(f(e)));
-	};
-};
-var tink_core__$Promise_Combiner_$Impl_$ = {};
-tink_core__$Promise_Combiner_$Impl_$.__name__ = "tink.core._Promise.Combiner_Impl_";
-tink_core__$Promise_Combiner_$Impl_$.ofSafe = function(f) {
-	return function(x1,x2) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(f(x1,x2)));
-	};
-};
-tink_core__$Promise_Combiner_$Impl_$.ofSync = function(f) {
-	return function(x1,x2) {
-		return f(x1,x2).map(tink_core_Outcome.Success).gather();
-	};
-};
-tink_core__$Promise_Combiner_$Impl_$.ofSafeSync = function(f) {
-	return function(x1,x2) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success(f(x1,x2))));
-	};
-};
-var tink_core__$Promise_PromiseTrigger_$Impl_$ = {};
-tink_core__$Promise_PromiseTrigger_$Impl_$.__name__ = "tink.core._Promise.PromiseTrigger_Impl_";
-tink_core__$Promise_PromiseTrigger_$Impl_$._new = function() {
-	return new tink_core_FutureTrigger();
-};
-tink_core__$Promise_PromiseTrigger_$Impl_$.resolve = function(this1,v) {
-	return this1.trigger(tink_core_Outcome.Success(v));
-};
-tink_core__$Promise_PromiseTrigger_$Impl_$.reject = function(this1,e) {
-	return this1.trigger(tink_core_Outcome.Failure(e));
-};
-tink_core__$Promise_PromiseTrigger_$Impl_$.asPromise = function(this1) {
-	return this1;
-};
-var tink_core__$Ref_Ref_$Impl_$ = {};
-tink_core__$Ref_Ref_$Impl_$.__name__ = "tink.core._Ref.Ref_Impl_";
-tink_core__$Ref_Ref_$Impl_$._new = function() {
-	return new Array(1);
-};
-tink_core__$Ref_Ref_$Impl_$.get_value = function(this1) {
-	return this1[0];
-};
-tink_core__$Ref_Ref_$Impl_$.set_value = function(this1,param) {
-	return this1[0] = param;
-};
-tink_core__$Ref_Ref_$Impl_$.toString = function(this1) {
-	return "@[" + Std.string(this1[0]) + "]";
-};
-tink_core__$Ref_Ref_$Impl_$.to = function(v) {
-	var ret = new Array(1);
-	ret[0] = v;
-	return ret;
-};
-var tink_core__$Signal_Signal_$Impl_$ = {};
-tink_core__$Signal_Signal_$Impl_$.__name__ = "tink.core._Signal.Signal_Impl_";
-tink_core__$Signal_Signal_$Impl_$._new = function(f) {
-	return new tink_core__$Signal_SimpleSignal(f);
-};
-tink_core__$Signal_Signal_$Impl_$.map = function(this1,f,gather) {
-	if(gather == null) {
-		gather = true;
-	}
-	var ret = new tink_core__$Signal_SimpleSignal(function(cb) {
-		return this1.handle(function(result) {
-			var this2 = f(result);
-			tink_core__$Callback_Callback_$Impl_$.invoke(cb,this2);
-		});
-	});
-	if(gather) {
-		return tink_core__$Signal_Signal_$Impl_$.gather(ret);
-	} else {
-		return ret;
-	}
-};
-tink_core__$Signal_Signal_$Impl_$.flatMap = function(this1,f,gather) {
-	if(gather == null) {
-		gather = true;
-	}
-	var ret = new tink_core__$Signal_SimpleSignal(function(cb) {
-		return this1.handle(function(result) {
-			f(result).handle(cb);
-		});
-	});
-	if(gather) {
-		return tink_core__$Signal_Signal_$Impl_$.gather(ret);
-	} else {
-		return ret;
-	}
-};
-tink_core__$Signal_Signal_$Impl_$.filter = function(this1,f,gather) {
-	if(gather == null) {
-		gather = true;
-	}
-	var ret = new tink_core__$Signal_SimpleSignal(function(cb) {
-		return this1.handle(function(result) {
-			if(f(result)) {
-				tink_core__$Callback_Callback_$Impl_$.invoke(cb,result);
-			}
-		});
-	});
-	if(gather) {
-		return tink_core__$Signal_Signal_$Impl_$.gather(ret);
-	} else {
-		return ret;
-	}
-};
-tink_core__$Signal_Signal_$Impl_$.select = function(this1,selector,gather) {
-	if(gather == null) {
-		gather = true;
-	}
-	var ret = new tink_core__$Signal_SimpleSignal(function(cb) {
-		return this1.handle(function(result) {
-			var _g = selector(result);
-			switch(_g._hx_index) {
-			case 0:
-				tink_core__$Callback_Callback_$Impl_$.invoke(cb,_g.v);
-				break;
-			case 1:
-				break;
-			}
-		});
-	});
-	if(gather) {
-		return tink_core__$Signal_Signal_$Impl_$.gather(ret);
-	} else {
-		return ret;
-	}
-};
-tink_core__$Signal_Signal_$Impl_$.join = function(this1,other,gather) {
-	if(gather == null) {
-		gather = true;
-	}
-	var ret = new tink_core__$Signal_SimpleSignal(function(cb) {
-		return new tink_core__$Callback_LinkPair(this1.handle(cb),other.handle(cb));
-	});
-	if(gather) {
-		return tink_core__$Signal_Signal_$Impl_$.gather(ret);
-	} else {
-		return ret;
-	}
-};
-tink_core__$Signal_Signal_$Impl_$.nextTime = function(this1,condition) {
-	var ret = new tink_core_FutureTrigger();
-	var link = null;
-	var immediate = false;
-	link = this1.handle(function(v) {
-		if(condition == null || condition(v)) {
-			ret.trigger(v);
-			if(link == null) {
-				immediate = true;
-			} else if(link != null) {
-				link.cancel();
-			}
-		}
-	});
-	if(immediate) {
-		if(link != null) {
-			link.cancel();
-		}
-	}
-	return ret;
-};
-tink_core__$Signal_Signal_$Impl_$.until = function(this1,end) {
-	var ret = new tink_core__$Signal_Suspendable(function($yield) {
-		var this2 = this1.handle($yield);
-		if(this2 == null) {
-			return tink_core__$Callback_CallbackLink_$Impl_$.noop;
-		} else {
-			return ($_=this2,$bind($_,$_.cancel));
-		}
-	});
-	end.handle(tink_core__$Callback_Callback_$Impl_$.fromNiladic($bind(ret,ret.kill)));
-	return ret;
-};
-tink_core__$Signal_Signal_$Impl_$.next = function(this1,condition) {
-	return tink_core__$Signal_Signal_$Impl_$.nextTime(this1,condition);
-};
-tink_core__$Signal_Signal_$Impl_$.noise = function(this1) {
-	return tink_core__$Signal_Signal_$Impl_$.map(this1,function(_) {
-		return tink_core_Noise.Noise;
-	});
-};
-tink_core__$Signal_Signal_$Impl_$.gather = function(this1) {
-	var ret = tink_core__$Signal_Signal_$Impl_$.trigger();
-	this1.handle(function(x) {
-		tink_core__$Callback_CallbackList_$Impl_$.invoke(ret.handlers,x);
-	});
-	return ret;
-};
-tink_core__$Signal_Signal_$Impl_$.generate = function(generator) {
-	var ret = tink_core__$Signal_Signal_$Impl_$.trigger();
-	generator($bind(ret,ret.trigger));
-	return ret;
-};
-tink_core__$Signal_Signal_$Impl_$.trigger = function() {
-	return new tink_core_SignalTrigger();
-};
-tink_core__$Signal_Signal_$Impl_$.create = function(create) {
-	return new tink_core__$Signal_Suspendable(create);
-};
-tink_core__$Signal_Signal_$Impl_$.ofClassical = function(add,remove,gather) {
-	if(gather == null) {
-		gather = true;
-	}
-	var ret = new tink_core__$Signal_SimpleSignal(function(cb) {
-		var f = function(a) {
-			tink_core__$Callback_Callback_$Impl_$.invoke(cb,a);
-		};
-		add(f);
-		var f1 = remove;
-		var a1 = f;
-		return new tink_core__$Callback_SimpleLink(function() {
-			f1(a1);
-		});
-	});
-	if(gather) {
-		return tink_core__$Signal_Signal_$Impl_$.gather(ret);
-	} else {
-		return ret;
-	}
-};
-var tink_core_SignalObject = function() { };
-tink_core_SignalObject.__name__ = "tink.core.SignalObject";
-tink_core_SignalObject.prototype = {
-	__class__: tink_core_SignalObject
-};
-var tink_core__$Signal_SimpleSignal = function(f) {
-	this.f = f;
-};
-tink_core__$Signal_SimpleSignal.__name__ = "tink.core._Signal.SimpleSignal";
-tink_core__$Signal_SimpleSignal.__interfaces__ = [tink_core_SignalObject];
-tink_core__$Signal_SimpleSignal.prototype = {
-	handle: function(cb) {
-		return this.f(cb);
-	}
-	,__class__: tink_core__$Signal_SimpleSignal
-};
-var tink_core__$Signal_Suspendable = function(activate) {
-	this.killed = false;
-	this.trigger = new tink_core_SignalTrigger();
-	this.activate = activate;
-};
-tink_core__$Signal_Suspendable.__name__ = "tink.core._Signal.Suspendable";
-tink_core__$Signal_Suspendable.__interfaces__ = [tink_core_SignalObject];
-tink_core__$Signal_Suspendable.prototype = {
-	kill: function() {
-		if(!this.killed) {
-			this.killed = true;
-			this.trigger = null;
-		}
-	}
-	,handle: function(cb) {
-		var _gthis = this;
-		if(this.killed) {
-			return null;
-		}
-		if(this.trigger.handlers.length == 0) {
-			this.suspend = this.activate(($_=this.trigger,$bind($_,$_.trigger)));
-		}
-		return new tink_core__$Callback_LinkPair(tink_core__$Callback_CallbackList_$Impl_$.add(this.trigger.handlers,cb),new tink_core__$Callback_SimpleLink(function() {
-			if(_gthis.trigger.handlers.length == 0) {
-				_gthis.suspend();
-				_gthis.suspend = null;
-			}
-		}));
-	}
-	,__class__: tink_core__$Signal_Suspendable
-};
-var tink_core_SignalTrigger = function() {
-	this.handlers = [];
-};
-tink_core_SignalTrigger.__name__ = "tink.core.SignalTrigger";
-tink_core_SignalTrigger.__interfaces__ = [tink_core_SignalObject];
-tink_core_SignalTrigger.prototype = {
-	trigger: function(event) {
-		tink_core__$Callback_CallbackList_$Impl_$.invoke(this.handlers,event);
-	}
-	,getLength: function() {
-		return this.handlers.length;
-	}
-	,handle: function(cb) {
-		return tink_core__$Callback_CallbackList_$Impl_$.add(this.handlers,cb);
-	}
-	,clear: function() {
-		tink_core__$Callback_CallbackList_$Impl_$.clear(this.handlers);
-	}
-	,asSignal: function() {
-		return this;
-	}
-	,__class__: tink_core_SignalTrigger
-};
-var tink_streams__$IdealStream_IdealStream_$Impl_$ = {};
-tink_streams__$IdealStream_IdealStream_$Impl_$.__name__ = "tink.streams._IdealStream.IdealStream_Impl_";
-tink_streams__$IdealStream_IdealStream_$Impl_$.promiseOfIdealStream = function(p) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(tink_core__$Promise_Promise_$Impl_$.ofSpecific(p));
-};
-tink_streams__$IdealStream_IdealStream_$Impl_$.promiseOfStreamNoise = function(p) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(p);
-};
-tink_streams__$IdealStream_IdealStream_$Impl_$.collect = function(this1) {
-	var buf = [];
-	return this1.forEach(tink_streams__$Stream_Handler_$Impl_$.ofSafe(function(x) {
-		buf.push(x);
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_Handled.Resume));
-	})).map(function(c) {
-		return buf;
-	}).gather();
-};
 var tink_streams_StreamObject = function() { };
 tink_streams_StreamObject.__name__ = "tink.streams.StreamObject";
 tink_streams_StreamObject.prototype = {
 	__class__: tink_streams_StreamObject
 };
 var tink_streams_StreamBase = function() {
-	this.retainCount = 0;
 };
 tink_streams_StreamBase.__name__ = "tink.streams.StreamBase";
 tink_streams_StreamBase.__interfaces__ = [tink_streams_StreamObject];
 tink_streams_StreamBase.prototype = {
-	get_depleted: function() {
-		return false;
-	}
-	,retain: function() {
-		var _gthis = this;
-		this.retainCount++;
-		var retained = true;
-		return function() {
-			if(retained) {
-				retained = false;
-				--_gthis.retainCount;
-			}
-		};
-	}
-	,next: function() {
-		throw new js__$Boot_HaxeError("not implemented");
-	}
-	,regroup: function(f) {
-		return new tink_streams__$Stream_RegroupStream(this,f);
-	}
-	,map: function(f) {
-		return this.regroup(f);
-	}
-	,filter: function(f) {
-		return this.regroup(f);
-	}
-	,destroy: function() {
-	}
-	,append: function(other) {
-		if(this.get_depleted()) {
-			return other;
-		} else {
-			return tink_streams__$Stream_CompoundStream.of([this,other]);
-		}
-	}
-	,prepend: function(other) {
-		if(this.get_depleted()) {
-			return other;
-		} else {
-			return tink_streams__$Stream_CompoundStream.of([other,this]);
-		}
-	}
-	,blend: function(other) {
-		if(this.get_depleted()) {
-			return other;
-		} else {
-			return new tink_streams_BlendStream(this,other);
-		}
-	}
-	,decompose: function(into) {
-		if(!this.get_depleted()) {
-			into.push(this);
-		}
-	}
-	,idealize: function(rescue) {
-		if(this.get_depleted()) {
-			return tink_streams_Empty.inst;
-		} else {
-			return new tink_streams_IdealizeStream(this,rescue);
-		}
-	}
-	,reduce: function(initial,reducer) {
-		var _gthis = this;
-		return tink_core__$Future_Future_$Impl_$.async(function(cb) {
-			_gthis.forEach(tink_streams__$Stream_Handler_$Impl_$.ofUnknown(function(item) {
-				return reducer(initial,item).map(function(o) {
-					switch(o._hx_index) {
-					case 0:
-						initial = o.result;
-						return tink_streams_Handled.Resume;
-					case 1:
-						return tink_streams_Handled.Clog(o.e);
-					}
-				}).gather();
-			})).handle(function(c) {
-				switch(c._hx_index) {
-				case 0:
-					throw new js__$Boot_HaxeError("assert");
-				case 1:
-					cb(tink_streams_Reduction.Crashed(c.error,c.at));
-					break;
-				case 2:
-					cb(tink_streams_Reduction.Failed(c.error));
-					break;
-				case 3:
-					cb(tink_streams_Reduction.Reduced(initial));
-					break;
-				}
-			});
-		},true);
-	}
-	,forEach: function(handler) {
+	forEach: function(handler) {
 		throw new js__$Boot_HaxeError("not implemented");
 	}
 	,__class__: tink_streams_StreamBase
 };
-var tink_streams_IdealStreamBase = function() {
-	tink_streams_StreamBase.call(this);
-};
-tink_streams_IdealStreamBase.__name__ = "tink.streams.IdealStreamBase";
-tink_streams_IdealStreamBase.__super__ = tink_streams_StreamBase;
-tink_streams_IdealStreamBase.prototype = $extend(tink_streams_StreamBase.prototype,{
-	idealize: function(rescue) {
-		return this;
-	}
-	,__class__: tink_streams_IdealStreamBase
-});
-var tink_streams__$RealStream_RealStream_$Impl_$ = {};
-tink_streams__$RealStream_RealStream_$Impl_$.__name__ = "tink.streams._RealStream.RealStream_Impl_";
-tink_streams__$RealStream_RealStream_$Impl_$.promiseOfIdealStream = function(p) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(tink_core__$Promise_Promise_$Impl_$.ofSpecific(p));
-};
-tink_streams__$RealStream_RealStream_$Impl_$.promiseOfStreamNoise = function(p) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(p);
-};
-tink_streams__$RealStream_RealStream_$Impl_$.promiseOfRealStream = function(p) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(tink_core__$Promise_Promise_$Impl_$.ofSpecific(p));
-};
-tink_streams__$RealStream_RealStream_$Impl_$.promiseOfStreamError = function(p) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(p);
-};
-tink_streams__$RealStream_RealStream_$Impl_$.collect = function(this1) {
-	var buf = [];
-	return this1.forEach(tink_streams__$Stream_Handler_$Impl_$.ofSafe(function(x) {
-		buf.push(x);
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_Handled.Resume));
-	})).map(function(c) {
-		switch(c._hx_index) {
-		case 0:
-			throw new js__$Boot_HaxeError("unreachable");
-		case 2:
-			return tink_core_Outcome.Failure(c.error);
-		case 3:
-			return tink_core_Outcome.Success(buf);
-		}
-	}).gather();
-};
 var tink_streams__$Stream_Stream_$Impl_$ = {};
 tink_streams__$Stream_Stream_$Impl_$.__name__ = "tink.streams._Stream.Stream_Impl_";
-tink_streams__$Stream_Stream_$Impl_$.get_depleted = function(this1) {
-	return this1.get_depleted();
-};
-tink_streams__$Stream_Stream_$Impl_$.dirty = function(this1) {
-	return this1;
-};
-tink_streams__$Stream_Stream_$Impl_$.single = function(i) {
-	return new tink_streams_Single(new tink_core__$Lazy_LazyConst(i));
-};
 tink_streams__$Stream_Stream_$Impl_$.ofIterator = function(i) {
 	var next = null;
 	next = function(step) {
@@ -3417,225 +1415,6 @@ tink_streams__$Stream_Stream_$Impl_$.ofIterator = function(i) {
 	};
 	return tink_streams_Generator.stream(next);
 };
-tink_streams__$Stream_Stream_$Impl_$.flatten = function(f) {
-	return new tink_streams_FutureStream(f);
-};
-tink_streams__$Stream_Stream_$Impl_$.promiseIdeal = function(f) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(tink_core__$Promise_Promise_$Impl_$.ofSpecific(f));
-};
-tink_streams__$Stream_Stream_$Impl_$.promiseReal = function(f) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(tink_core__$Promise_Promise_$Impl_$.ofSpecific(f));
-};
-tink_streams__$Stream_Stream_$Impl_$.promise = function(f) {
-	return tink_streams__$Stream_Stream_$Impl_$.flatten(f.map(function(o) {
-		switch(o._hx_index) {
-		case 0:
-			return tink_streams__$Stream_Stream_$Impl_$.dirty(o.data);
-		case 1:
-			return tink_streams__$Stream_Stream_$Impl_$.ofError(o.failure);
-		}
-	}).gather());
-};
-tink_streams__$Stream_Stream_$Impl_$.ofError = function(e) {
-	return new tink_streams__$Stream_ErrorStream(e);
-};
-var tink_streams_RegroupStatus = $hxEnums["tink.streams.RegroupStatus"] = { __ename__ : true, __constructs__ : ["Flowing","Errored","Ended"]
-	,Flowing: {_hx_index:0,__enum__:"tink.streams.RegroupStatus",toString:$estr}
-	,Errored: ($_=function(e) { return {_hx_index:1,e:e,__enum__:"tink.streams.RegroupStatus",toString:$estr}; },$_.__params__ = ["e"],$_)
-	,Ended: {_hx_index:2,__enum__:"tink.streams.RegroupStatus",toString:$estr}
-};
-var tink_streams_RegroupResult = $hxEnums["tink.streams.RegroupResult"] = { __ename__ : true, __constructs__ : ["Converted","Terminated","Untouched","Errored"]
-	,Converted: ($_=function(data) { return {_hx_index:0,data:data,__enum__:"tink.streams.RegroupResult",toString:$estr}; },$_.__params__ = ["data"],$_)
-	,Terminated: ($_=function(data) { return {_hx_index:1,data:data,__enum__:"tink.streams.RegroupResult",toString:$estr}; },$_.__params__ = ["data"],$_)
-	,Untouched: {_hx_index:2,__enum__:"tink.streams.RegroupResult",toString:$estr}
-	,Errored: ($_=function(e) { return {_hx_index:3,e:e,__enum__:"tink.streams.RegroupResult",toString:$estr}; },$_.__params__ = ["e"],$_)
-};
-var tink_streams__$Stream_Regrouper_$Impl_$ = {};
-tink_streams__$Stream_Regrouper_$Impl_$.__name__ = "tink.streams._Stream.Regrouper_Impl_";
-tink_streams__$Stream_Regrouper_$Impl_$.ofIgnorance = function(f) {
-	return { apply : function(i,_) {
-		return f(i);
-	}};
-};
-tink_streams__$Stream_Regrouper_$Impl_$.ofIgnoranceSync = function(f) {
-	return { apply : function(i,_) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(f(i)));
-	}};
-};
-tink_streams__$Stream_Regrouper_$Impl_$.ofFunc = function(f) {
-	return { apply : f};
-};
-tink_streams__$Stream_Regrouper_$Impl_$.ofFuncSync = function(f) {
-	return { apply : function(i,s) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(f(i,s)));
-	}};
-};
-var tink_streams__$Stream_CompoundStream = function(parts) {
-	tink_streams_StreamBase.call(this);
-	this.parts = parts;
-};
-tink_streams__$Stream_CompoundStream.__name__ = "tink.streams._Stream.CompoundStream";
-tink_streams__$Stream_CompoundStream.consumeParts = function(parts,handler,cb) {
-	if(parts.length == 0) {
-		cb(tink_streams_Conclusion.Depleted);
-	} else {
-		parts[0].forEach(handler).handle(function(o) {
-			switch(o._hx_index) {
-			case 0:
-				parts = parts.slice();
-				parts[0] = o.rest;
-				cb(tink_streams_Conclusion.Halted(new tink_streams__$Stream_CompoundStream(parts)));
-				break;
-			case 1:
-				var at = o.at;
-				if(at.get_depleted()) {
-					parts = parts.slice(1);
-				} else {
-					parts = parts.slice();
-					parts[0] = at;
-				}
-				cb(tink_streams_Conclusion.Clogged(o.error,new tink_streams__$Stream_CompoundStream(parts)));
-				break;
-			case 2:
-				cb(tink_streams_Conclusion.Failed(o.error));
-				break;
-			case 3:
-				tink_streams__$Stream_CompoundStream.consumeParts(parts.slice(1),handler,cb);
-				break;
-			}
-		});
-	}
-};
-tink_streams__$Stream_CompoundStream.of = function(streams) {
-	var ret = [];
-	var _g = 0;
-	while(_g < streams.length) streams[_g++].decompose(ret);
-	if(ret.length == 0) {
-		return tink_streams_Empty.inst;
-	} else {
-		return new tink_streams__$Stream_CompoundStream(ret);
-	}
-};
-tink_streams__$Stream_CompoundStream.__super__ = tink_streams_StreamBase;
-tink_streams__$Stream_CompoundStream.prototype = $extend(tink_streams_StreamBase.prototype,{
-	get_depleted: function() {
-		switch(this.parts.length) {
-		case 0:
-			return true;
-		case 1:
-			return this.parts[0].get_depleted();
-		default:
-			return false;
-		}
-	}
-	,next: function() {
-		var _gthis = this;
-		if(this.parts.length == 0) {
-			return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_Step.End));
-		} else {
-			return this.parts[0].next().flatMap(function(v) {
-				switch(v._hx_index) {
-				case 0:
-					var copy = _gthis.parts.slice();
-					copy[0] = v.next;
-					return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_Step.Link(v.value,new tink_streams__$Stream_CompoundStream(copy))));
-				case 2:
-					if(_gthis.parts.length > 1) {
-						return _gthis.parts[1].next();
-					} else {
-						return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(v));
-					}
-					break;
-				default:
-					return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(v));
-				}
-			}).gather();
-		}
-	}
-	,decompose: function(into) {
-		var _g = 0;
-		var _g1 = this.parts;
-		while(_g < _g1.length) _g1[_g++].decompose(into);
-	}
-	,forEach: function(handler) {
-		var parts = this.parts;
-		var handler1 = handler;
-		return tink_core__$Future_Future_$Impl_$.async(function(cb) {
-			tink_streams__$Stream_CompoundStream.consumeParts(parts,handler1,cb);
-		});
-	}
-	,__class__: tink_streams__$Stream_CompoundStream
-});
-var tink_streams__$Stream_RegroupStream = function(source,f,prev) {
-	if(prev == null) {
-		prev = tink_streams_Empty.inst;
-	}
-	var ret = null;
-	var terminated = false;
-	var buf = [];
-	tink_streams__$Stream_CompoundStream.call(this,[prev,tink_streams__$Stream_Stream_$Impl_$.flatten(source.forEach(tink_streams__$Stream_Handler_$Impl_$.ofUnknown(function(item) {
-		buf.push(item);
-		return f.apply(buf,tink_streams_RegroupStatus.Flowing).map(function(o) {
-			switch(o._hx_index) {
-			case 0:
-				ret = o.data;
-				return tink_streams_Handled.Finish;
-			case 1:
-				var v = o.data;
-				ret = v._hx_index == 0 ? v.v : new tink_core__$Lazy_LazyFunc(tink_streams_Empty.make).get();
-				terminated = true;
-				return tink_streams_Handled.Finish;
-			case 2:
-				return tink_streams_Handled.Resume;
-			case 3:
-				return tink_streams_Handled.Clog(o.e);
-			}
-		}).gather();
-	})).map(function(o1) {
-		switch(o1._hx_index) {
-		case 0:
-			if(terminated) {
-				return ret;
-			} else {
-				return new tink_streams__$Stream_RegroupStream(o1.rest,f,ret);
-			}
-			break;
-		case 1:
-			return new tink_streams__$Stream_CloggedStream(tink_streams__$Stream_Stream_$Impl_$.ofError(o1.error),o1.at);
-		case 2:
-			return tink_streams__$Stream_Stream_$Impl_$.ofError(o1.error);
-		case 3:
-			if(buf.length == 0) {
-				return tink_streams_Empty.inst;
-			} else {
-				return tink_streams__$Stream_Stream_$Impl_$.flatten(f.apply(buf,tink_streams_RegroupStatus.Ended).map(function(o2) {
-					switch(o2._hx_index) {
-					case 0:
-						return o2.data;
-					case 1:
-						var v1 = o2.data;
-						if(v1._hx_index == 0) {
-							return v1.v;
-						} else {
-							return new tink_core__$Lazy_LazyFunc(tink_streams_Empty.make).get();
-						}
-						break;
-					case 2:
-						return tink_streams_Empty.inst;
-					case 3:
-						return tink_streams__$Stream_Stream_$Impl_$.ofError(o2.e);
-					}
-				}).gather());
-			}
-			break;
-		}
-	}).gather())]);
-};
-tink_streams__$Stream_RegroupStream.__name__ = "tink.streams._Stream.RegroupStream";
-tink_streams__$Stream_RegroupStream.__super__ = tink_streams__$Stream_CompoundStream;
-tink_streams__$Stream_RegroupStream.prototype = $extend(tink_streams__$Stream_CompoundStream.prototype,{
-	__class__: tink_streams__$Stream_RegroupStream
-});
 var tink_streams_Handled = $hxEnums["tink.streams.Handled"] = { __ename__ : true, __constructs__ : ["BackOff","Finish","Resume","Clog"]
 	,BackOff: {_hx_index:0,__enum__:"tink.streams.Handled",toString:$estr}
 	,Finish: {_hx_index:1,__enum__:"tink.streams.Handled",toString:$estr}
@@ -3648,322 +1427,11 @@ var tink_streams_Conclusion = $hxEnums["tink.streams.Conclusion"] = { __ename__ 
 	,Failed: ($_=function(error) { return {_hx_index:2,error:error,__enum__:"tink.streams.Conclusion",toString:$estr}; },$_.__params__ = ["error"],$_)
 	,Depleted: {_hx_index:3,__enum__:"tink.streams.Conclusion",toString:$estr}
 };
-var tink_streams_ReductionStep = $hxEnums["tink.streams.ReductionStep"] = { __ename__ : true, __constructs__ : ["Progress","Crash"]
-	,Progress: ($_=function(result) { return {_hx_index:0,result:result,__enum__:"tink.streams.ReductionStep",toString:$estr}; },$_.__params__ = ["result"],$_)
-	,Crash: ($_=function(e) { return {_hx_index:1,e:e,__enum__:"tink.streams.ReductionStep",toString:$estr}; },$_.__params__ = ["e"],$_)
-};
-var tink_streams_Reduction = $hxEnums["tink.streams.Reduction"] = { __ename__ : true, __constructs__ : ["Crashed","Failed","Reduced"]
-	,Crashed: ($_=function(error,at) { return {_hx_index:0,error:error,at:at,__enum__:"tink.streams.Reduction",toString:$estr}; },$_.__params__ = ["error","at"],$_)
-	,Failed: ($_=function(error) { return {_hx_index:1,error:error,__enum__:"tink.streams.Reduction",toString:$estr}; },$_.__params__ = ["error"],$_)
-	,Reduced: ($_=function(result) { return {_hx_index:2,result:result,__enum__:"tink.streams.Reduction",toString:$estr}; },$_.__params__ = ["result"],$_)
-};
-var tink_streams__$Stream_CloggedStream = function(rest,error) {
-	tink_streams_StreamBase.call(this);
-	this.rest = rest;
-	this.error = error;
-};
-tink_streams__$Stream_CloggedStream.__name__ = "tink.streams._Stream.CloggedStream";
-tink_streams__$Stream_CloggedStream.__super__ = tink_streams_StreamBase;
-tink_streams__$Stream_CloggedStream.prototype = $extend(tink_streams_StreamBase.prototype,{
-	next: function() {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_Step.Fail(this.error)));
-	}
-	,forEach: function(handler) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_Conclusion.Clogged(this.error,this.rest)));
-	}
-	,__class__: tink_streams__$Stream_CloggedStream
-});
-var tink_streams__$Stream_ErrorStream = function(error) {
-	tink_streams_StreamBase.call(this);
-	this.error = error;
-};
-tink_streams__$Stream_ErrorStream.__name__ = "tink.streams._Stream.ErrorStream";
-tink_streams__$Stream_ErrorStream.__super__ = tink_streams_StreamBase;
-tink_streams__$Stream_ErrorStream.prototype = $extend(tink_streams_StreamBase.prototype,{
-	next: function() {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_Step.Fail(this.error)));
-	}
-	,forEach: function(handler) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_Conclusion.Failed(this.error)));
-	}
-	,__class__: tink_streams__$Stream_ErrorStream
-});
-var tink_streams_Empty = function() {
-	tink_streams_StreamBase.call(this);
-};
-tink_streams_Empty.__name__ = "tink.streams.Empty";
-tink_streams_Empty.make = function() {
-	return tink_streams_Empty.inst;
-};
-tink_streams_Empty.__super__ = tink_streams_StreamBase;
-tink_streams_Empty.prototype = $extend(tink_streams_StreamBase.prototype,{
-	get_depleted: function() {
-		return true;
-	}
-	,next: function() {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_Step.End));
-	}
-	,forEach: function(handler) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_Conclusion.Depleted));
-	}
-	,__class__: tink_streams_Empty
-});
-var tink_streams__$Stream_Mapping_$Impl_$ = {};
-tink_streams__$Stream_Mapping_$Impl_$.__name__ = "tink.streams._Stream.Mapping_Impl_";
-tink_streams__$Stream_Mapping_$Impl_$._new = function(o) {
-	return o;
-};
-tink_streams__$Stream_Mapping_$Impl_$.ofNext = function(n) {
-	return { apply : function(i,_) {
-		var this1 = tink_core__$Promise_Promise_$Impl_$.next(n(i[0]),function(o) {
-			return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success(tink_streams_RegroupResult.Converted(tink_streams__$Stream_Stream_$Impl_$.single(o)))));
-		});
-		var f = tink_core__$Promise_Recover_$Impl_$.ofSync(tink_streams_RegroupResult.Errored);
-		return this1.flatMap(function(o1) {
-			switch(o1._hx_index) {
-			case 0:
-				return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(o1.data));
-			case 1:
-				return f(o1.failure);
-			}
-		}).gather();
-	}};
-};
-tink_streams__$Stream_Mapping_$Impl_$.ofAsync = function(f) {
-	return { apply : function(i,_) {
-		return f(i[0]).map(function(o) {
-			return tink_streams_RegroupResult.Converted(tink_streams__$Stream_Stream_$Impl_$.single(o));
-		}).gather();
-	}};
-};
-tink_streams__$Stream_Mapping_$Impl_$.ofSync = function(f) {
-	return { apply : function(i,_) {
-		var v;
-		var _g = f(i[0]);
-		switch(_g._hx_index) {
-		case 0:
-			v = tink_streams_RegroupResult.Converted(tink_streams__$Stream_Stream_$Impl_$.single(_g.data));
-			break;
-		case 1:
-			v = tink_streams_RegroupResult.Errored(_g.failure);
-			break;
-		}
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(v));
-	}};
-};
-tink_streams__$Stream_Mapping_$Impl_$.ofPlain = function(f) {
-	return { apply : function(i,_) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_RegroupResult.Converted(tink_streams__$Stream_Stream_$Impl_$.single(f(i[0])))));
-	}};
-};
-var tink_streams__$Stream_Filter_$Impl_$ = {};
-tink_streams__$Stream_Filter_$Impl_$.__name__ = "tink.streams._Stream.Filter_Impl_";
-tink_streams__$Stream_Filter_$Impl_$._new = function(o) {
-	return o;
-};
-tink_streams__$Stream_Filter_$Impl_$.ofNext = function(n) {
-	return { apply : function(i,_) {
-		var this1 = tink_core__$Promise_Promise_$Impl_$.next(n(i[0]),function(matched) {
-			return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success(tink_streams_RegroupResult.Converted(matched ? tink_streams__$Stream_Stream_$Impl_$.single(i[0]) : tink_streams_Empty.inst))));
-		});
-		var f = tink_core__$Promise_Recover_$Impl_$.ofSync(tink_streams_RegroupResult.Errored);
-		return this1.flatMap(function(o) {
-			switch(o._hx_index) {
-			case 0:
-				return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(o.data));
-			case 1:
-				return f(o.failure);
-			}
-		}).gather();
-	}};
-};
-tink_streams__$Stream_Filter_$Impl_$.ofAsync = function(f) {
-	return { apply : function(i,_) {
-		return f(i[0]).map(function(matched) {
-			return tink_streams_RegroupResult.Converted(matched ? tink_streams__$Stream_Stream_$Impl_$.single(i[0]) : tink_streams_Empty.inst);
-		}).gather();
-	}};
-};
-tink_streams__$Stream_Filter_$Impl_$.ofSync = function(f) {
-	return { apply : function(i,_) {
-		var v;
-		var _g = f(i[0]);
-		switch(_g._hx_index) {
-		case 0:
-			v = tink_streams_RegroupResult.Converted(_g.data ? tink_streams__$Stream_Stream_$Impl_$.single(i[0]) : tink_streams_Empty.inst);
-			break;
-		case 1:
-			v = tink_streams_RegroupResult.Errored(_g.failure);
-			break;
-		}
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(v));
-	}};
-};
-tink_streams__$Stream_Filter_$Impl_$.ofPlain = function(f) {
-	return { apply : function(i,_) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_RegroupResult.Converted(f(i[0]) ? tink_streams__$Stream_Stream_$Impl_$.single(i[0]) : tink_streams_Empty.inst)));
-	}};
-};
-var tink_streams_IdealizeStream = function(target,rescue) {
-	tink_streams_IdealStreamBase.call(this);
-	this.target = target;
-	this.rescue = rescue;
-};
-tink_streams_IdealizeStream.__name__ = "tink.streams.IdealizeStream";
-tink_streams_IdealizeStream.__super__ = tink_streams_IdealStreamBase;
-tink_streams_IdealizeStream.prototype = $extend(tink_streams_IdealStreamBase.prototype,{
-	get_depleted: function() {
-		return this.target.get_depleted();
-	}
-	,next: function() {
-		var _gthis = this;
-		return this.target.next().flatMap(function(v) {
-			if(v._hx_index == 1) {
-				return _gthis.rescue(v.e).idealize(_gthis.rescue).next();
-			} else {
-				return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(v));
-			}
-		}).gather();
-	}
-	,forEach: function(handler) {
-		var _gthis = this;
-		return tink_core__$Future_Future_$Impl_$.async(function(cb) {
-			_gthis.target.forEach(handler).handle(function(end) {
-				switch(end._hx_index) {
-				case 0:
-					var tmp = tink_streams_Conclusion.Halted(end.rest.idealize(_gthis.rescue));
-					cb(tmp);
-					break;
-				case 1:
-					var tmp1 = tink_streams_Conclusion.Clogged(end.error,end.at.idealize(_gthis.rescue));
-					cb(tmp1);
-					break;
-				case 2:
-					_gthis.rescue(end.error).idealize(_gthis.rescue).forEach(handler).handle(cb);
-					break;
-				case 3:
-					cb(tink_streams_Conclusion.Depleted);
-					break;
-				}
-			});
-		});
-	}
-	,__class__: tink_streams_IdealizeStream
-});
-var tink_streams_Single = function(value) {
-	tink_streams_StreamBase.call(this);
-	this.value = value;
-};
-tink_streams_Single.__name__ = "tink.streams.Single";
-tink_streams_Single.__super__ = tink_streams_StreamBase;
-tink_streams_Single.prototype = $extend(tink_streams_StreamBase.prototype,{
-	next: function() {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_Step.Link(this.value.get(),tink_streams_Empty.inst)));
-	}
-	,forEach: function(handle) {
-		var _gthis = this;
-		return handle(this.value.get()).map(function(step) {
-			switch(step._hx_index) {
-			case 0:
-				return tink_streams_Conclusion.Halted(_gthis);
-			case 1:
-				return tink_streams_Conclusion.Halted(tink_streams_Empty.inst);
-			case 2:
-				return tink_streams_Conclusion.Depleted;
-			case 3:
-				return tink_streams_Conclusion.Clogged(step.e,_gthis);
-			}
-		}).gather();
-	}
-	,__class__: tink_streams_Single
-});
 var tink_streams__$Stream_Handler_$Impl_$ = {};
 tink_streams__$Stream_Handler_$Impl_$.__name__ = "tink.streams._Stream.Handler_Impl_";
-tink_streams__$Stream_Handler_$Impl_$._new = function(f) {
-	return f;
-};
-tink_streams__$Stream_Handler_$Impl_$.apply = function(this1,item) {
-	return this1(item);
-};
-tink_streams__$Stream_Handler_$Impl_$.ofSafeSync = function(f) {
-	return function(i) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(f(i)));
-	};
-};
-tink_streams__$Stream_Handler_$Impl_$.ofUnknownSync = function(f) {
-	return function(i) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(f(i)));
-	};
-};
 tink_streams__$Stream_Handler_$Impl_$.ofSafe = function(f) {
 	return f;
 };
-tink_streams__$Stream_Handler_$Impl_$.ofUnknown = function(f) {
-	return f;
-};
-var tink_streams__$Stream_Reducer_$Impl_$ = {};
-tink_streams__$Stream_Reducer_$Impl_$.__name__ = "tink.streams._Stream.Reducer_Impl_";
-tink_streams__$Stream_Reducer_$Impl_$._new = function(f) {
-	return f;
-};
-tink_streams__$Stream_Reducer_$Impl_$.apply = function(this1,res,item) {
-	return this1(res,item);
-};
-tink_streams__$Stream_Reducer_$Impl_$.ofSafeSync = function(f) {
-	return function(res,cur) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(f(res,cur)));
-	};
-};
-tink_streams__$Stream_Reducer_$Impl_$.ofUnknownSync = function(f) {
-	return function(res,cur) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(f(res,cur)));
-	};
-};
-tink_streams__$Stream_Reducer_$Impl_$.ofSafe = function(f) {
-	return f;
-};
-tink_streams__$Stream_Reducer_$Impl_$.ofPlainSync = function(f) {
-	return function(res,cur) {
-		return new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_streams_ReductionStep.Progress(f(res,cur))));
-	};
-};
-tink_streams__$Stream_Reducer_$Impl_$.ofUnknown = function(f) {
-	return f;
-};
-tink_streams__$Stream_Reducer_$Impl_$.ofPromiseBased = function(f) {
-	return function(res,cur) {
-		return f(res,cur).map(function(s) {
-			switch(s._hx_index) {
-			case 0:
-				return tink_streams_ReductionStep.Progress(s.data);
-			case 1:
-				return tink_streams_ReductionStep.Crash(s.failure);
-			}
-		}).gather();
-	};
-};
-var tink_streams_FutureStream = function(f) {
-	tink_streams_StreamBase.call(this);
-	this.f = f;
-};
-tink_streams_FutureStream.__name__ = "tink.streams.FutureStream";
-tink_streams_FutureStream.__super__ = tink_streams_StreamBase;
-tink_streams_FutureStream.prototype = $extend(tink_streams_StreamBase.prototype,{
-	next: function() {
-		return this.f.flatMap(function(s) {
-			return s.next();
-		}).gather();
-	}
-	,forEach: function(handler) {
-		var _gthis = this;
-		return tink_core__$Future_Future_$Impl_$.async(function(cb) {
-			_gthis.f.handle(function(s) {
-				s.forEach(handler).handle(cb);
-			});
-		});
-	}
-	,__class__: tink_streams_FutureStream
-});
 var tink_streams_Generator = function(upcoming) {
 	tink_streams_StreamBase.call(this);
 	this.upcoming = upcoming;
@@ -3974,10 +1442,7 @@ tink_streams_Generator.stream = function(step) {
 };
 tink_streams_Generator.__super__ = tink_streams_StreamBase;
 tink_streams_Generator.prototype = $extend(tink_streams_StreamBase.prototype,{
-	next: function() {
-		return this.upcoming;
-	}
-	,forEach: function(handler) {
+	forEach: function(handler) {
 		var _gthis = this;
 		return tink_core__$Future_Future_$Impl_$.async(function(cb) {
 			_gthis.upcoming.handle(function(e) {
@@ -4013,66 +1478,10 @@ tink_streams_Generator.prototype = $extend(tink_streams_StreamBase.prototype,{
 	}
 	,__class__: tink_streams_Generator
 });
-var tink_streams_BlendStream = function(a,b) {
-	var first = null;
-	var wait = function(s) {
-		return s.next().map(function(o) {
-			if(first == null) {
-				first = s;
-			}
-			return o;
-		}).gather();
-	};
-	var n1 = wait(a);
-	var n2 = wait(b);
-	tink_streams_Generator.call(this,tink_core__$Future_Future_$Impl_$.async(function(cb) {
-		tink_core__$Future_Future_$Impl_$.first(n1,n2).handle(function(o1) {
-			switch(o1._hx_index) {
-			case 0:
-				var tmp = tink_streams_Step.Link(o1.value,new tink_streams_BlendStream(o1.next,first == a ? b : a));
-				cb(tmp);
-				break;
-			case 1:
-				cb(tink_streams_Step.Fail(o1.e));
-				break;
-			case 2:
-				(first == a ? n2 : n1).handle(cb);
-				break;
-			}
-		});
-	}));
-};
-tink_streams_BlendStream.__name__ = "tink.streams.BlendStream";
-tink_streams_BlendStream.__super__ = tink_streams_Generator;
-tink_streams_BlendStream.prototype = $extend(tink_streams_Generator.prototype,{
-	__class__: tink_streams_BlendStream
-});
 var tink_streams_Step = $hxEnums["tink.streams.Step"] = { __ename__ : true, __constructs__ : ["Link","Fail","End"]
 	,Link: ($_=function(value,next) { return {_hx_index:0,value:value,next:next,__enum__:"tink.streams.Step",toString:$estr}; },$_.__params__ = ["value","next"],$_)
 	,Fail: ($_=function(e) { return {_hx_index:1,e:e,__enum__:"tink.streams.Step",toString:$estr}; },$_.__params__ = ["e"],$_)
 	,End: {_hx_index:2,__enum__:"tink.streams.Step",toString:$estr}
-};
-var tink_streams_SignalStream = function(signal) {
-	tink_streams_Generator.call(this,tink_core__$Signal_Signal_$Impl_$.nextTime(signal).map(function(o) {
-		switch(o._hx_index) {
-		case 0:
-			return tink_streams_Step.Link(o.data,new tink_streams_SignalStream(signal));
-		case 1:
-			return tink_streams_Step.Fail(o.e);
-		case 2:
-			return tink_streams_Step.End;
-		}
-	}).gather());
-};
-tink_streams_SignalStream.__name__ = "tink.streams.SignalStream";
-tink_streams_SignalStream.__super__ = tink_streams_Generator;
-tink_streams_SignalStream.prototype = $extend(tink_streams_Generator.prototype,{
-	__class__: tink_streams_SignalStream
-});
-var tink_streams_Yield = $hxEnums["tink.streams.Yield"] = { __ename__ : true, __constructs__ : ["Data","Fail","End"]
-	,Data: ($_=function(data) { return {_hx_index:0,data:data,__enum__:"tink.streams.Yield",toString:$estr}; },$_.__params__ = ["data"],$_)
-	,Fail: ($_=function(e) { return {_hx_index:1,e:e,__enum__:"tink.streams.Yield",toString:$estr}; },$_.__params__ = ["e"],$_)
-	,End: {_hx_index:2,__enum__:"tink.streams.Yield",toString:$estr}
 };
 var tink_testrunner_Assertion = function(holds,description,pos) {
 	this.holds = holds;
@@ -4091,135 +1500,6 @@ tink_testrunner__$Assertion_AssertionResult_$Impl_$.ofBool = function(v) {
 	} else {
 		return tink_core_Outcome.Failure(null);
 	}
-};
-tink_testrunner__$Assertion_AssertionResult_$Impl_$.ofOutcome = function(v) {
-	switch(v._hx_index) {
-	case 0:
-		return tink_core_Outcome.Success(tink_core_Noise.Noise);
-	case 1:
-		var e = v.failure;
-		return tink_core_Outcome.Failure("" + e.toString() + " " + Std.string(e.data));
-	}
-};
-tink_testrunner__$Assertion_AssertionResult_$Impl_$.toBool = function(this1) {
-	return tink_core_OutcomeTools.isSuccess(this1);
-};
-tink_testrunner__$Assertion_AssertionResult_$Impl_$.not = function(this1) {
-	return !tink_core_OutcomeTools.isSuccess(this1);
-};
-tink_testrunner__$Assertion_AssertionResult_$Impl_$.and_ = function(a,b) {
-	if(tink_core_OutcomeTools.isSuccess(a)) {
-		return b;
-	} else {
-		return false;
-	}
-};
-tink_testrunner__$Assertion_AssertionResult_$Impl_$.or_ = function(a,b) {
-	if(!tink_core_OutcomeTools.isSuccess(a)) {
-		return b;
-	} else {
-		return true;
-	}
-};
-tink_testrunner__$Assertion_AssertionResult_$Impl_$._and = function(a,b) {
-	if(a) {
-		return tink_core_OutcomeTools.isSuccess(b);
-	} else {
-		return false;
-	}
-};
-tink_testrunner__$Assertion_AssertionResult_$Impl_$._or = function(a,b) {
-	if(!a) {
-		return tink_core_OutcomeTools.isSuccess(b);
-	} else {
-		return true;
-	}
-};
-var tink_testrunner__$Assertions_Assertions_$Impl_$ = {};
-tink_testrunner__$Assertions_Assertions_$Impl_$.__name__ = "tink.testrunner._Assertions.Assertions_Impl_";
-tink_testrunner__$Assertions_Assertions_$Impl_$.ofAssertion = function(o) {
-	return tink_streams__$Stream_Stream_$Impl_$.ofIterator(HxOverrides.iter([o]));
-};
-tink_testrunner__$Assertions_Assertions_$Impl_$.ofArray = function(o) {
-	return tink_streams__$Stream_Stream_$Impl_$.ofIterator(HxOverrides.iter(o));
-};
-tink_testrunner__$Assertions_Assertions_$Impl_$.ofPromiseArray = function(o) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(tink_core__$Promise_Promise_$Impl_$.next(o,tink_core__$Promise_Next_$Impl_$.ofSafeSync(function(o1) {
-		return tink_streams__$Stream_Stream_$Impl_$.ofIterator(HxOverrides.iter(o1));
-	})));
-};
-tink_testrunner__$Assertions_Assertions_$Impl_$.ofFutureAssertion = function(p) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(p.map(function(a) {
-		return tink_core_Outcome.Success(tink_streams__$Stream_Stream_$Impl_$.ofIterator(HxOverrides.iter([a])));
-	}).gather());
-};
-tink_testrunner__$Assertions_Assertions_$Impl_$.ofFutureAssertions = function(p) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(p.map(tink_core_Outcome.Success).gather());
-};
-tink_testrunner__$Assertions_Assertions_$Impl_$.ofSurpriseAssertion = function(p) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(tink_core__$Future_Future_$Impl_$._tryMap(p,function(o) {
-		return tink_streams__$Stream_Stream_$Impl_$.ofIterator(HxOverrides.iter([o]));
-	}));
-};
-tink_testrunner__$Assertions_Assertions_$Impl_$.ofOutcomeAssertions = function(o) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(o)));
-};
-tink_testrunner__$Assertions_Assertions_$Impl_$.ofPromiseAssertions = function(p) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(p);
-};
-tink_testrunner__$Assertions_Assertions_$Impl_$.ofSurpriseAssertions = function(p) {
-	return tink_streams__$Stream_Stream_$Impl_$.promise(p);
-};
-var tink_testrunner__$Batch_Batch_$Impl_$ = {};
-tink_testrunner__$Batch_Batch_$Impl_$.__name__ = "tink.testrunner._Batch.Batch_Impl_";
-tink_testrunner__$Batch_Batch_$Impl_$._new = function(suites) {
-	return suites;
-};
-tink_testrunner__$Batch_Batch_$Impl_$.ofSuites = function(suites) {
-	return suites;
-};
-tink_testrunner__$Batch_Batch_$Impl_$.ofSuite = function(suite) {
-	return [suite];
-};
-tink_testrunner__$Batch_Batch_$Impl_$.ofCases = function(cases,pos) {
-	var _g = [];
-	var _g1 = 0;
-	while(_g1 < cases.length) {
-		var c = cases[_g1];
-		++_g1;
-		var _g11 = c == null ? null : js_Boot.getClass(c);
-		var suite;
-		if(_g11 == null) {
-			suite = null;
-		} else {
-			var c1 = _g11;
-			suite = c1.__name__;
-		}
-		_g.push(suite);
-	}
-	return [new tink_testrunner_BasicSuite({ name : _g.join(", "), pos : pos},cases,{ fileName : "tink/testrunner/Suite.hx", lineNumber : 36, className : "tink.testrunner._Suite.Suite_Impl_", methodName : "ofCases"})];
-};
-tink_testrunner__$Batch_Batch_$Impl_$.ofCase = function(caze,pos) {
-	var cases = [caze];
-	var _g = [];
-	var _g1 = 0;
-	while(_g1 < cases.length) {
-		var c = cases[_g1];
-		++_g1;
-		var _g11 = c == null ? null : js_Boot.getClass(c);
-		var suite;
-		if(_g11 == null) {
-			suite = null;
-		} else {
-			var c1 = _g11;
-			suite = c1.__name__;
-		}
-		_g.push(suite);
-	}
-	return [new tink_testrunner_BasicSuite({ name : _g.join(", "), pos : pos},cases,{ fileName : "tink/testrunner/Suite.hx", lineNumber : 36, className : "tink.testrunner._Suite.Suite_Impl_", methodName : "ofCases"})];
-};
-tink_testrunner__$Batch_Batch_$Impl_$.get_suites = function(this1) {
-	return this1;
 };
 var tink_testrunner__$Case_Case_$Impl_$ = {};
 tink_testrunner__$Case_Case_$Impl_$.__name__ = "tink.testrunner._Case.Case_Impl_";
@@ -4264,9 +1544,6 @@ tink_testrunner_BasicFormatter.prototype = {
 	,error: function(v) {
 		return this.color(v,"red");
 	}
-	,warning: function(v) {
-		return this.color(v,"yellow");
-	}
 	,info: function(v) {
 		return this.color(v,"yellow");
 	}
@@ -4276,40 +1553,11 @@ tink_testrunner_BasicFormatter.prototype = {
 	,mute: function(v) {
 		return this.color(v,"blue");
 	}
-	,normal: function(v) {
-		return this.color(v,"");
-	}
 	,color: function(v,c) {
 		return v;
 	}
 	,__class__: tink_testrunner_BasicFormatter
 };
-var tink_testrunner_AnsiFormatter = function() {
-	tink_testrunner_BasicFormatter.call(this);
-};
-tink_testrunner_AnsiFormatter.__name__ = "tink.testrunner.AnsiFormatter";
-tink_testrunner_AnsiFormatter.__super__ = tink_testrunner_BasicFormatter;
-tink_testrunner_AnsiFormatter.prototype = $extend(tink_testrunner_BasicFormatter.prototype,{
-	color: function(v,c) {
-		switch(c) {
-		case "blue":
-			return ANSI.aset([Attribute.Blue]) + v + ANSI.aset([Attribute.DefaultForeground]);
-		case "cyan":
-			return ANSI.aset([Attribute.Cyan]) + v + ANSI.aset([Attribute.DefaultForeground]);
-		case "green":
-			return ANSI.aset([Attribute.Green]) + v + ANSI.aset([Attribute.DefaultForeground]);
-		case "magenta":
-			return ANSI.aset([Attribute.Magenta]) + v + ANSI.aset([Attribute.DefaultForeground]);
-		case "red":
-			return ANSI.aset([Attribute.Red]) + v + ANSI.aset([Attribute.DefaultForeground]);
-		case "yellow":
-			return ANSI.aset([Attribute.Yellow]) + v + ANSI.aset([Attribute.DefaultForeground]);
-		default:
-			return ANSI.aset([Attribute.DefaultForeground]) + v;
-		}
-	}
-	,__class__: tink_testrunner_AnsiFormatter
-});
 var tink_testrunner_BasicReporter = function(formatter) {
 	this.noise = new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Noise.Noise));
 	this.formatter = formatter != null ? formatter : new tink_testrunner_BasicFormatter();
@@ -4447,9 +1695,6 @@ tink_testrunner_BasicReporter.prototype = {
 };
 var tink_testrunner_Runner = function() { };
 tink_testrunner_Runner.__name__ = "tink.testrunner.Runner";
-tink_testrunner_Runner.exit = function(result) {
-	throw new js__$Boot_HaxeError("not supported");
-};
 tink_testrunner_Runner.run = function(batch,reporter,timers) {
 	if(reporter == null) {
 		reporter = new tink_testrunner_BasicReporter();
@@ -4689,43 +1934,6 @@ var tink_testrunner_FailureType = $hxEnums["tink.testrunner.FailureType"] = { __
 };
 var tink_testrunner__$Suite_Suite_$Impl_$ = {};
 tink_testrunner__$Suite_Suite_$Impl_$.__name__ = "tink.testrunner._Suite.Suite_Impl_";
-tink_testrunner__$Suite_Suite_$Impl_$.ofCases = function(cases,pos) {
-	var _g = [];
-	var _g1 = 0;
-	while(_g1 < cases.length) {
-		var c = cases[_g1];
-		++_g1;
-		var _g11 = c == null ? null : js_Boot.getClass(c);
-		var tmp;
-		if(_g11 == null) {
-			tmp = null;
-		} else {
-			var c1 = _g11;
-			tmp = c1.__name__;
-		}
-		_g.push(tmp);
-	}
-	return new tink_testrunner_BasicSuite({ name : _g.join(", "), pos : pos},cases,{ fileName : "tink/testrunner/Suite.hx", lineNumber : 36, className : "tink.testrunner._Suite.Suite_Impl_", methodName : "ofCases"});
-};
-tink_testrunner__$Suite_Suite_$Impl_$.ofCase = function(caze,pos) {
-	var cases = [caze];
-	var _g = [];
-	var _g1 = 0;
-	while(_g1 < cases.length) {
-		var c = cases[_g1];
-		++_g1;
-		var _g11 = c == null ? null : js_Boot.getClass(c);
-		var tmp;
-		if(_g11 == null) {
-			tmp = null;
-		} else {
-			var c1 = _g11;
-			tmp = c1.__name__;
-		}
-		_g.push(tmp);
-	}
-	return new tink_testrunner_BasicSuite({ name : _g.join(", "), pos : pos},cases,{ fileName : "tink/testrunner/Suite.hx", lineNumber : 36, className : "tink.testrunner._Suite.Suite_Impl_", methodName : "ofCases"});
-};
 tink_testrunner__$Suite_Suite_$Impl_$.getCasesToBeRun = function(this1,includeMode) {
 	return this1.cases.filter(function(c) {
 		return tink_testrunner__$Case_Case_$Impl_$.shouldRun(c,includeMode);
@@ -4765,7 +1973,6 @@ tink_testrunner_HaxeTimerManager.prototype = {
 	}
 	,__class__: tink_testrunner_HaxeTimerManager
 };
-function $getIterator(o) { if( o instanceof Array ) return HxOverrides.iter(o); else return o.iterator(); }
 var $fid = 0;
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $fid++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = m.bind(o); o.hx__closures__[m.__id__] = f; } return f; }
 js_Boot.__toStr = ({ }).toString;
@@ -4779,317 +1986,10 @@ var Bool = Boolean;
 var Class = { };
 var Enum = { };
 global.window = {console:console}
-haxe_ds_ObjectMap.count = 0;
-var __map_reserved = {};
 Object.defineProperty(js__$Boot_HaxeError.prototype,"message",{ get : function() {
 	return String(this.val);
 }});
-ANSI.ESCAPE = "\x1B";
-ANSI.BELL = "\x07";
-ANSI.CSI = "\x1B" + "[";
-ANSI.attr = Attribute;
-ANSI.values = (function($this) {
-	var $r;
-	var _g = new haxe_ds_EnumValueMap();
-	_g.set(Attribute.Off,0);
-	_g.set(Attribute.Bold,1);
-	_g.set(Attribute.Underline,4);
-	_g.set(Attribute.Blink,5);
-	_g.set(Attribute.ReverseVideo,7);
-	_g.set(Attribute.Concealed,8);
-	_g.set(Attribute.BoldOff,22);
-	_g.set(Attribute.UnderlineOff,24);
-	_g.set(Attribute.BlinkOff,25);
-	_g.set(Attribute.NormalVideo,27);
-	_g.set(Attribute.ConcealedOff,28);
-	_g.set(Attribute.Black,30);
-	_g.set(Attribute.Red,31);
-	_g.set(Attribute.Green,32);
-	_g.set(Attribute.Yellow,33);
-	_g.set(Attribute.Blue,34);
-	_g.set(Attribute.Magenta,35);
-	_g.set(Attribute.Cyan,36);
-	_g.set(Attribute.White,37);
-	_g.set(Attribute.DefaultForeground,39);
-	_g.set(Attribute.BlackBack,40);
-	_g.set(Attribute.RedBack,41);
-	_g.set(Attribute.GreenBack,42);
-	_g.set(Attribute.YellowBack,43);
-	_g.set(Attribute.BlueBack,44);
-	_g.set(Attribute.MagentaBack,45);
-	_g.set(Attribute.CyanBack,46);
-	_g.set(Attribute.WhiteBack,47);
-	_g.set(Attribute.DefaultBackground,49);
-	$r = _g;
-	return $r;
-}(this));
-ANSI.set = Reflect.makeVarArgs(ANSI.aset);
-ANSI.available = ANSI.detectSupport();
-ANSI.strip = false;
-ANSI.stripIfUnavailable = true;
-ANSI.sequences = (function($this) {
-	var $r;
-	var _g = new haxe_ds_StringMap();
-	{
-		var value = { val : "\x1B" + "[" + "J", doc : "Erase from cursor to the end of display."};
-		if(__map_reserved["eraseDisplayToEnd"] != null) {
-			_g.setReserved("eraseDisplayToEnd",value);
-		} else {
-			_g.h["eraseDisplayToEnd"] = value;
-		}
-	}
-	{
-		var value1 = { val : "\x1B" + "[" + "1J", doc : "Erase from the start of diplay to cursor (inclusive)."};
-		if(__map_reserved["eraseDisplayToCursor"] != null) {
-			_g.setReserved("eraseDisplayToCursor",value1);
-		} else {
-			_g.h["eraseDisplayToCursor"] = value1;
-		}
-	}
-	{
-		var value2 = { val : "\x1B" + "[" + "2J", doc : "Erase display and move cursor to the top-left."};
-		if(__map_reserved["eraseDisplay"] != null) {
-			_g.setReserved("eraseDisplay",value2);
-		} else {
-			_g.h["eraseDisplay"] = value2;
-		}
-	}
-	{
-		var value3 = { val : "\x1B" + "[" + "K", doc : "Erase from cursor to the end of line."};
-		if(__map_reserved["eraseLineToEnd"] != null) {
-			_g.setReserved("eraseLineToEnd",value3);
-		} else {
-			_g.h["eraseLineToEnd"] = value3;
-		}
-	}
-	{
-		var value4 = { val : "\x1B" + "[" + "1K", doc : "Erase from the start of line to cursor (inclusive)."};
-		if(__map_reserved["eraseLineToCursor"] != null) {
-			_g.setReserved("eraseLineToCursor",value4);
-		} else {
-			_g.h["eraseLineToCursor"] = value4;
-		}
-	}
-	{
-		var value5 = { val : "\x1B" + "[" + "2K", doc : "Erase line."};
-		if(__map_reserved["eraseLine"] != null) {
-			_g.setReserved("eraseLine",value5);
-		} else {
-			_g.h["eraseLine"] = value5;
-		}
-	}
-	{
-		var value6 = { val : "\x1B" + "[" + "X", doc : "Erase one character."};
-		if(__map_reserved["eraseChar"] != null) {
-			_g.setReserved("eraseChar",value6);
-		} else {
-			_g.h["eraseChar"] = value6;
-		}
-	}
-	{
-		var value7 = { val : "\x1B" + "[" + "#X", doc : "Erase # characters."};
-		if(__map_reserved["eraseChars"] != null) {
-			_g.setReserved("eraseChars",value7);
-		} else {
-			_g.h["eraseChars"] = value7;
-		}
-	}
-	{
-		var value8 = { val : "\x1B" + "[" + "L", doc : "Insert one blank line."};
-		if(__map_reserved["insertLine"] != null) {
-			_g.setReserved("insertLine",value8);
-		} else {
-			_g.h["insertLine"] = value8;
-		}
-	}
-	{
-		var value9 = { val : "\x1B" + "[" + "#L", doc : "Insert # blank lines."};
-		if(__map_reserved["insertLines"] != null) {
-			_g.setReserved("insertLines",value9);
-		} else {
-			_g.h["insertLines"] = value9;
-		}
-	}
-	{
-		var value10 = { val : "\x1B" + "[" + "M", doc : "Delete one line."};
-		if(__map_reserved["deleteLine"] != null) {
-			_g.setReserved("deleteLine",value10);
-		} else {
-			_g.h["deleteLine"] = value10;
-		}
-	}
-	{
-		var value11 = { val : "\x1B" + "[" + "#M", doc : "Delete # lines."};
-		if(__map_reserved["deleteLines"] != null) {
-			_g.setReserved("deleteLines",value11);
-		} else {
-			_g.h["deleteLines"] = value11;
-		}
-	}
-	{
-		var value12 = { val : "\x1B" + "[" + "P", doc : "Delete one character."};
-		if(__map_reserved["deleteChar"] != null) {
-			_g.setReserved("deleteChar",value12);
-		} else {
-			_g.h["deleteChar"] = value12;
-		}
-	}
-	{
-		var value13 = { val : "\x1B" + "[" + "#P", doc : "Delete # characters."};
-		if(__map_reserved["deleteChars"] != null) {
-			_g.setReserved("deleteChars",value13);
-		} else {
-			_g.h["deleteChars"] = value13;
-		}
-	}
-	{
-		var value14 = { val : "\x1B" + "[" + "@", doc : "Insert one blank character."};
-		if(__map_reserved["insertChar"] != null) {
-			_g.setReserved("insertChar",value14);
-		} else {
-			_g.h["insertChar"] = value14;
-		}
-	}
-	{
-		var value15 = { val : "\x1B" + "[" + "#@", doc : "Insert # blank characters."};
-		if(__map_reserved["insertChars"] != null) {
-			_g.setReserved("insertChars",value15);
-		} else {
-			_g.h["insertChars"] = value15;
-		}
-	}
-	{
-		var value16 = { val : "\x1B" + "[" + "#A", doc : "Move cursor up # lines."};
-		if(__map_reserved["moveUp"] != null) {
-			_g.setReserved("moveUp",value16);
-		} else {
-			_g.h["moveUp"] = value16;
-		}
-	}
-	{
-		var value17 = { val : "\x1B" + "[" + "#B", doc : "Move cursor down # lines."};
-		if(__map_reserved["moveDown"] != null) {
-			_g.setReserved("moveDown",value17);
-		} else {
-			_g.h["moveDown"] = value17;
-		}
-	}
-	{
-		var value18 = { val : "\x1B" + "[" + "#C", doc : "Move cursor right # characters."};
-		if(__map_reserved["moveRight"] != null) {
-			_g.setReserved("moveRight",value18);
-		} else {
-			_g.h["moveRight"] = value18;
-		}
-	}
-	{
-		var value19 = { val : "\x1B" + "[" + "#D", doc : "Move cursor left # characters."};
-		if(__map_reserved["moveLeft"] != null) {
-			_g.setReserved("moveLeft",value19);
-		} else {
-			_g.h["moveLeft"] = value19;
-		}
-	}
-	{
-		var value20 = { val : "\x1B" + "[" + "#E", doc : "Move cursor down # lines and to first column."};
-		if(__map_reserved["moveDownReset"] != null) {
-			_g.setReserved("moveDownReset",value20);
-		} else {
-			_g.h["moveDownReset"] = value20;
-		}
-	}
-	{
-		var value21 = { val : "\x1B" + "[" + "#F", doc : "Move cursor up # lines and to first column."};
-		if(__map_reserved["moveUpReset"] != null) {
-			_g.setReserved("moveUpReset",value21);
-		} else {
-			_g.h["moveUpReset"] = value21;
-		}
-	}
-	{
-		var value22 = { val : "\x1B" + "[" + "#G", doc : "Move cursor to column #."};
-		if(__map_reserved["setX"] != null) {
-			_g.setReserved("setX",value22);
-		} else {
-			_g.h["setX"] = value22;
-		}
-	}
-	{
-		var value23 = { val : "\x1B" + "[" + "#d", doc : "Move cursor to line #."};
-		if(__map_reserved["setY"] != null) {
-			_g.setReserved("setY",value23);
-		} else {
-			_g.h["setY"] = value23;
-		}
-	}
-	{
-		var value24 = { val : "\x1B" + "[" + "H", doc : "Move cursor to top-left."};
-		if(__map_reserved["reset"] != null) {
-			_g.setReserved("reset",value24);
-		} else {
-			_g.h["reset"] = value24;
-		}
-	}
-	{
-		var value25 = { val : "\x1B" + "[" + "#H", doc : "Move cursor to line # and first column."};
-		if(__map_reserved["resetY"] != null) {
-			_g.setReserved("resetY",value25);
-		} else {
-			_g.h["resetY"] = value25;
-		}
-	}
-	{
-		var value26 = { val : "\x1B" + "[" + "#;#H", doc : "Move cursor to line #, column #.", params : [{ index : 1, name : "column"},{ index : 0, name : "line"}]};
-		if(__map_reserved["setXY"] != null) {
-			_g.setReserved("setXY",value26);
-		} else {
-			_g.h["setXY"] = value26;
-		}
-	}
-	{
-		var value27 = { val : "\x1B" + "[" + "s", doc : "Save cursor position."};
-		if(__map_reserved["saveCursor"] != null) {
-			_g.setReserved("saveCursor",value27);
-		} else {
-			_g.h["saveCursor"] = value27;
-		}
-	}
-	{
-		var value28 = { val : "\x1B" + "[" + "u", doc : "Move cursor to saved position."};
-		if(__map_reserved["loadCursor"] != null) {
-			_g.setReserved("loadCursor",value28);
-		} else {
-			_g.h["loadCursor"] = value28;
-		}
-	}
-	{
-		var value29 = { val : "\x1B" + "[" + "?25h", doc : "Show cursor."};
-		if(__map_reserved["showCursor"] != null) {
-			_g.setReserved("showCursor",value29);
-		} else {
-			_g.h["showCursor"] = value29;
-		}
-	}
-	{
-		var value30 = { val : "\x1B" + "[" + "?25l", doc : "Hide cursor."};
-		if(__map_reserved["hideCursor"] != null) {
-			_g.setReserved("hideCursor",value30);
-		} else {
-			_g.h["hideCursor"] = value30;
-		}
-	}
-	$r = _g;
-	return $r;
-}(this));
 tink_core__$Callback_Callback_$Impl_$.depth = 0;
-tink_core__$Callback_Callback_$Impl_$.MAX_DEPTH = 1000;
-tink_core__$Future_NeverFuture.inst = new tink_core__$Future_NeverFuture();
-tink_core__$Future_Future_$Impl_$.NULL = new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(null));
-tink_core__$Future_Future_$Impl_$.NOISE = new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Noise.Noise));
-tink_core__$Future_Future_$Impl_$.NEVER = new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core__$Future_NeverFuture.inst));
-tink_core__$Promise_Promise_$Impl_$.NULL = new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success(null)));
 tink_core__$Promise_Promise_$Impl_$.NOISE = new tink_core__$Future_SyncFuture(new tink_core__$Lazy_LazyConst(tink_core_Outcome.Success(tink_core_Noise.Noise)));
-tink_core__$Promise_Promise_$Impl_$.NEVER = tink_core__$Future_Future_$Impl_$.NEVER.map(tink_core_Outcome.Success).gather();
-tink_streams_Empty.inst = new tink_streams_Empty();
 Main.main();
 })(typeof window != "undefined" ? window : typeof global != "undefined" ? global : typeof self != "undefined" ? self : this);

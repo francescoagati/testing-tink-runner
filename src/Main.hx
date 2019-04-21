@@ -30,7 +30,7 @@ class MyTools {
      * >>> MyTools.isValidName("John") == true
      * </code></pre>
      */
-    public static function isValidName(str:String):Bool {
+    public static inline function isValidName(str:String):Bool {
         return str != null && str.length > 0;
     }
 }
@@ -47,7 +47,7 @@ class MyObject {
      * >>> new MyObject("ab") throws nothing
      * </code></pre>
      */
-    public function new(data:String) {
+    public inline function new(data:String) {
         if(data == null) throw "[data] must not be null!";
         this.data = data;
     }
@@ -59,7 +59,7 @@ class MyObject {
      * >>> new MyObject("abc").length() != 2
      * </code></pre>
      */
-    public function length():Int {
+    public inline function length():Int {
         return data == null ? 0 : data.length;
     }
 
@@ -68,7 +68,7 @@ class MyObject {
      * >>> ({ var o=new MyObject("cat"); o.setData("dog"); o.data; }) == "dog"
      * </code></pre>
      */
-    public function setData(data:String):Void {
+    public inline function setData(data:String):Void {
         this.data = data;
     }
 }

@@ -3,3 +3,6 @@
 -main Main
 -js main.js
 -lib tink_testrunner haxe-doctest
+-dce full
+-D analyzer
+-D analyzer.module
