@@ -1,0 +1,20 @@
+#automatically generated do not edit
+#@date Sun Apr 21 2019 20:55:25 GMT+0200 (ora legale Europa occ.)
+-cp c:\users\franc\documents\nuova cartella (2)\src\
+-D analyzer-optimize
+-main Main
+-js main.js
+#@begin-cache -lib tink_testrunner haxe-doctest
+-cp c:\haxetoolkit\haxe\lib\tink_testrunner\0,7,2\src\
+-D tink_testrunner=0.7.2
+-cp c:\haxetoolkit\haxe\lib\ansi\1,0,0\src\
+-D ansi=1.0.0
+-cp c:\haxetoolkit\haxe\lib\tink_macro\git\src\
+-D tink_macro=0.17.4
+-cp c:\haxetoolkit\haxe\lib\tink_core\1,21,0\src\
+-D tink_core=1.21.0
+-D pure
+-cp c:\haxetoolkit\haxe\lib\tink_streams\0,3,2\src\
+-D tink_streams=0.3.2
+#@end-cache
+-cp c:\users\franc\appdata\local\temp\3a4e0343d69736fbdad73c2babeb0ca5487a3ce7
